@@ -5,7 +5,13 @@
 #include <vector>
 
 class MyPhoton: public TLorentzVector{
+private:
+	Double_t HoverE = 0;
+	
 public:
+	void set_HoverE(const Double_t &x);
+	Double_t get_HoverE();
+
 	void print();
 	void print_all(vector<MyPhoton>&);
 };

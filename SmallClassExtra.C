@@ -10,6 +10,7 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("Photon_pt" ,1);
 	fChain->SetBranchStatus("Photon_eta",1);
 	fChain->SetBranchStatus("Photon_phi",1);
+	fChain->SetBranchStatus("Photon_HoverE",1);
 }
 
 //build objects
@@ -24,6 +25,7 @@ void SmallClassExtra::build_photons(){
 				Photon_phi->at(i),
 				0
 				);
+		p.set_HoverE(Photon_HoverE->at(i));
 		MyPhotons.push_back(p);
 	}
 	if(MyPhotons.size() > 1){
