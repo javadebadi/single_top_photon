@@ -1,17 +1,11 @@
 #include "MyPhoton.h"
 
-void MyPhoton::set_HoverE(const Double_t &x){
-		HoverE = x;
-}
-
-Double_t MyPhoton::get_HoverE(){
-		return HoverE;
-}
 
 void MyPhoton::print(){
 	cout<<"(Pt,Eta,Phi,E) = "<<"("<<
 		Pt()<<","<<Eta()<<","<<Phi()<<","<<Energy()<<")"<<endl;
 	cout<<"HoverE = "<<HoverE<<endl;
+	cout<<"SigmaIEtaIEta = "<<SigmaIEtaIEta<<endl;
 	cout<<"----------------------------------------------"<<endl;
 }
 
