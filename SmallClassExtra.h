@@ -13,9 +13,14 @@ public:
 	// Turn on only branches which are needed
 	void turn_on_necessary_branches();
 
+	//build objects
+	//build photon
+	void build_photons();
+
 	// cuts
 	// Trigger cut
 	Int_t trigger_cut();
+	
 };
 
 #endif

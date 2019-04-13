@@ -7,6 +7,7 @@
 class MyPhoton: public TLorentzVector{
 public:
 	void print();
+	void print_all(vector<MyPhoton>&);
 };
 
 #endif

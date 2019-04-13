@@ -3,6 +3,8 @@
 #include "SmallClassExtra.C"
 #include "CutFlowTable.h"
 #include "CutFlowTable.C"
+#include "MyPhoton.h"
+#include "MyPhoton.C"
 
 #include <string>
 void print(int n, int N, int d=10000){

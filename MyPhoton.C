@@ -1,8 +1,14 @@
 #include "MyPhoton.h"
 
 void MyPhoton::print(){
-	cout<<"=========== photon ==========="<<endl;
 	cout<<"(Pt,Eta,Phi,E) = "<<"("<<
 		Pt()<<","<<Eta()<<","<<Phi()<<","<<Energy()<<")"<<endl;
-	cout<<"=============================="<<endl;
+	cout<<"----------------------------------------------"<<endl;
+}
+
+void MyPhoton::print_all(vector<MyPhoton> &MyPhotons){
+	cout<<"============== vector of photons ============="<<endl;
+	for(auto &p: MyPhotons){
+		p.print();
+	}
 }
