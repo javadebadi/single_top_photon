@@ -5,6 +5,16 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("*",0);
 	//other branches
 	fChain->SetBranchStatus("FixedGridRhoFastjetAll",1); // needed for photon
+	// genweight
+	fChain->SetBranchStatus("genweight",1);
+	//vertex
+	fChain->SetBranchStatus("Flag_globalTightHalo2016Filter",1);
+	fChain->SetBranchStatus("Flag_HBHENoiseFilter",1);
+	fChain->SetBranchStatus("Flag_HBHENoiseIsoFilter",1);
+        fChain->SetBranchStatus("Flag_EcalDeadCellTriggerPrimitiveFilter",1);
+        fChain->SetBranchStatus("Flag_eeBadScFilter",1);
+	fChain->SetBranchStatus("Flag_goodVertices",1);
+
 	// trigger branches
 	fChain->SetBranchStatus("HLT_IsoTkMu24",1);
 	fChain->SetBranchStatus("HLT_IsoMu24"  ,1);
@@ -50,14 +60,46 @@ void SmallClassExtra::build_photons(){
 		p.build();
 		MyPhotons.push_back(p);
 	}
-	if(MyPhotons.size() > 1){
+	/*if(MyPhotons.size() > 1){
 		MyPhotons.at(0).print_all(MyPhotons);	
-	}
+	}*/
 }
 
+void SmallClassExtra::build_all(){
+	build_photons();
+}
 //cuts
+Int_t SmallClassExtra::genweight_cut(){
+	if ( genweight >= 0 ) return 1;
+	else return -1;
+}
+//vertex cut
+Int_t SmallClassExtra::vertex_cut(){
+	//Well reconstructed primary vertex with | z | < 24 cm, ρ < 2 cm,
+	// I put goodVertices for above but i am not sure that is 
+	// the correct branch
+	//Bad PF Muon Filter.
+	//Bad Charged Hadron Filter.
+	if ( 	Flag_globalTightHalo2016Filter          == 1 &&
+		Flag_HBHENoiseFilter                    == 1 &&
+		Flag_HBHENoiseIsoFilter                 == 1 &&
+		Flag_EcalDeadCellTriggerPrimitiveFilter == 1 &&
+		Flag_eeBadScFilter                      == 1 &&
+		Flag_goodVertices                       == 1
+		) return 1;
+	else return -1;
+}
 //Trigger cut
 Int_t SmallClassExtra::trigger_cut(){
 	if( HLT_IsoTkMu24 > 0 || HLT_IsoMu24> 0) return 1;
 	else return -1;
+}
+//phton cut
+Int_t SmallClassExtra::photon_cut(){
+	Int_t n_passed = 0;
+	for(auto p: MyPhotons){
+		if(p.is_passed() > 0) n_passed++;
+	}
+	if ( n_passed == 1 ) return 1;
+	return -1;
 }

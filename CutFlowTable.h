@@ -6,10 +6,16 @@ public:
 	int n_entries;
 	int n_cuts;
 	enum class cut_name{
-		trigger = 0
+		genweight = 0,
+		vertex    = 1,
+		trigger   = 2,
+		photon    = 3
 	};
 	const vector<string> cut_name_string = {
-		"trigger"
+		"genweight",
+		"vertex",
+		"trigger",
+		"photon"
 	};
 	vector<Long64_t> n_selected;
 	vector<Double_t> efficiency;

@@ -5,6 +5,9 @@
 #include "PhotonID.h"
 #include <vector>
 
+// an object containing photon barrel information
+PhotonID_Summer17_v2_ID::BarrelTight photon_barrel_tight;
+
 class MyPhoton: public TLorentzVector{
 private:
 	Double_t HoverE = 0;
@@ -28,6 +31,7 @@ private:
 	Double_t PFChIso_corrected = 0;
 	Double_t PFPhoIso_corrected = 0;
 	Double_t PFNeuIso_corrected = 0;
+	
 	
 public:
 	void set_HoverE(const Double_t &x){HoverE = x;}
@@ -72,15 +76,12 @@ public:
         Double_t get_PFNeuIso_corrected(){return PFNeuIso_corrected;}
 
 
-        /*void set_PFPhoIso_corrected(const Double_t &x){PFPhoIso = x;}
-        Double_t get_PFPhoIso_corrected(){return PFPhoIso;}
-        void set_PFNeuIso_corrected(const Double_t &x){PFNeuIso = x;}
-        Double_t get_PFNeuIso_corrected(){return PFNeuIso;}*/
-
-
 	void build();
+	Int_t is_tight();
+	Int_t is_passed();
 	void print();
 	void print_all(vector<MyPhoton>&);
+	
 };
 
 #endif

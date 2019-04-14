@@ -11,8 +11,19 @@ void run(){
 	for(Long64_t event =0; event < n_entries; event++){
 		print(event+1,n_entries,10000);
 		working.GetEntry(event);
-		working.build_photons();
-		if( working.trigger_cut() > 0) cut_flow_table.fill(CutFlowTable::cut_name::trigger);
+		working.build_all(); // build all objects
+		if( working.genweight_cut() > 0 ){
+			cut_flow_table.fill(CutFlowTable::cut_name::genweight);}
+		else continue;
+		if(working.vertex_cut()     > 0 ){
+			cut_flow_table.fill(CutFlowTable::cut_name::vertex);}
+		else continue;
+		if( working.trigger_cut()   > 0 ){
+			cut_flow_table.fill(CutFlowTable::cut_name::trigger);}
+		else continue;
+		if( working.photon_cut()    > 0 ){
+			cut_flow_table.fill(CutFlowTable::cut_name::photon);}
+		else continue;
 	}
 	
 	cut_flow_table.calculate_write("efficieny.csv");

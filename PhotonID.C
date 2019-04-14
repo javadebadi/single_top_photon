@@ -85,3 +85,10 @@ Double_t PhotonID_Summer17_v2_ID::calculate_EANeu(const Double_t &eta){
                 return EANeu;
 }
 
+
+void PhotonID_Summer17_v2_ID::BarrelTight::reset_with_pt(Double_t pho_pt){
+	Pt = pho_pt;
+	PFNeuIso_corrected = 0.317 +0.01512*pho_pt + 2.259e-05*pho_pt*pho_pt;
+	PFPhoIso_corrected = 2.044 + 0.004017*pho_pt;
+
+}
