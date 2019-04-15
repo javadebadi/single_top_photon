@@ -5,8 +5,7 @@
 #include "CutFlowTable.C"
 #include "MyPhoton.h"
 #include "MyPhoton.C"
-#include "PhotonID.h"
-#include "PhotonID.C"
+#include "./ID/ID.C"
 
 #include <string>
 void print(int n, int N, int d=10000){

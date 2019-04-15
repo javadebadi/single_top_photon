@@ -6,12 +6,14 @@ public:
 	int n_entries;
 	int n_cuts;
 	enum class cut_name{
-		genweight = 0,
-		vertex    = 1,
-		trigger   = 2,
-		photon    = 3
+		non       = 0,
+		genweight = 1,
+		vertex    = 2,
+		trigger   = 3,
+		photon    = 4
 	};
 	const vector<string> cut_name_string = {
+		"non",
 		"genweight",
 		"vertex",
 		"trigger",

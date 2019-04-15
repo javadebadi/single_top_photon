@@ -2,11 +2,9 @@
 #define MYPHOTON_H_INCLUDED
 
 #include "TLorentzVector.h"
-#include "PhotonID.h"
+#include "Standards.h"
 #include <vector>
 
-// an object containing photon barrel information
-PhotonID_Summer17_v2_ID::BarrelTight photon_barrel_tight;
 
 class MyPhoton: public TLorentzVector{
 private:

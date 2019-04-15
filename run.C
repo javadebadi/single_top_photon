@@ -12,6 +12,7 @@ void run(){
 		print(event+1,n_entries,10000);
 		working.GetEntry(event);
 		working.build_all(); // build all objects
+		cut_flow_table.fill(CutFlowTable::cut_name::non);
 		if( working.genweight_cut() > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::genweight);}
 		else continue;

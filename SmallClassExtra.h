@@ -5,7 +5,6 @@
 #include "TLorentzVector.h"
 #include <vector>
 #include "MyPhoton.h"
-#include "PhotonID.h"
 
 class SmallClassExtra: public SmallClass{
 public:
