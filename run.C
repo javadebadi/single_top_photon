@@ -25,6 +25,9 @@ void run(){
 		if( working.photon_cut()    > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::photon);}
 		else continue;
+		if( working.muon_cut()      > 0 ){
+			cut_flow_table.fill(CutFlowTable::cut_name::muon);}
+		else continue;
 	}
 	
 	cut_flow_table.calculate_write("efficieny.csv");

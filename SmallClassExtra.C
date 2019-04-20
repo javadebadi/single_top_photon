@@ -32,6 +32,12 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("Photon_EleVeto",1);
 	fChain->SetBranchStatus("Photon_hasPixelSeed",1);
 	fChain->SetBranchStatus("Photon_mcMatchId",0); // off
+	// muon branches
+	fChain->SetBranchStatus("Muon_pt" ,1);
+	fChain->SetBranchStatus("Muon_eta",1);
+	fChain->SetBranchStatus("Muon_phi",1);
+	fChain->SetBranchStatus("Muon_tight",1);
+	fChain->SetBranchStatus("Muon_isGlobal",1);
 }
 
 //build objects
@@ -64,9 +70,30 @@ void SmallClassExtra::build_photons(){
 		MyPhotons.at(0).print_all(MyPhotons);	
 	}*/
 }
+//build muons
+void SmallClassExtra::build_muons(){
+	MyMuons.clear(); 	// to reset MyMuons vector (very important)
+				// if not cleared => Logical error
+	for(int i=0; i < Muon_pt->size(); i++){
+		MyMuon p;
+		p.SetPtEtaPhiM(	Muon_pt->at(i), 
+				Muon_eta->at(i), 
+				Muon_phi->at(i),
+				0.106
+				);
+		p.set_tight(Muon_tight);
+		p.set_isGlobal(Muon_isGlobal);
+		p.build();
+		MyMuons.push_back(p);
+	}
+	if(MyMuons.size() > 1){
+		MyMuons.at(0).print_all(MyMuons);	
+	}
+}
 
 void SmallClassExtra::build_all(){
 	build_photons();
+	build_muons();
 }
 //cuts
 Int_t SmallClassExtra::genweight_cut(){
@@ -101,5 +128,14 @@ Int_t SmallClassExtra::photon_cut(){
 		if(p.is_passed() > 0) n_passed++;
 	}
 	if ( n_passed == 1 ) return 1;
+	return -1;
+}
+//muon cut
+Int_t SmallClassExtra::muon_cut(){
+	Int_t n_passed = 0;
+	for(auto m: MyMuons){
+		if(m.is_passed() > 0 ) n_passed++;
+	}
+	if ( n_passed >= 1 ) return 1;
 	return -1;
 }

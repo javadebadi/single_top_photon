@@ -5,6 +5,7 @@
 #include "CutFlowTable.C"
 #include "MyPhoton.h"
 #include "MyPhoton.C"
+#include "MyMuon.C"
 #include "./ID/ID.C"
 
 #include <string>

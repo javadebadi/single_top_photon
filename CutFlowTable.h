@@ -10,14 +10,16 @@ public:
 		genweight = 1,
 		vertex    = 2,
 		trigger   = 3,
-		photon    = 4
+		photon    = 4,
+		muon      = 5
 	};
 	const vector<string> cut_name_string = {
 		"non",
 		"genweight",
 		"vertex",
 		"trigger",
-		"photon"
+		"photon",
+		"muon"
 	};
 	vector<Long64_t> n_selected;
 	vector<Double_t> efficiency;
