@@ -2,13 +2,13 @@
 
 void MyPhoton::build(){
 
-	// caclulate effective area EA 
+	// Apply Working Points of Photon ID Summer17_v2_ID
+	//set_EACh(PhotonID_Summer17_v2_ID::calculate_EACh(Eta()));
 	set_EACh(photon_calculate_EACh(Eta()));
-	set_EAPho(photon_calculate_EAPho(Eta()));
-	set_EANeu(photon_calculate_EANeu(Eta()));
-	// reset barrel tight condition with photon Pt
+	set_EAPho(PhotonID_Summer17_v2_ID::calculate_EAPho(Eta()));
+	set_EANeu(PhotonID_Summer17_v2_ID::calculate_EANeu(Eta()));
 	photon_barrel_tight.reset_with_pt(Pt());
-	// calculate rho corrected quantities
+
 	calculate_PFChIso_corrected();
 	calculate_PFPhoIso_corrected();
 	calculate_PFNeuIso_corrected();

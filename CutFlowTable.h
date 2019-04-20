@@ -11,7 +11,8 @@ public:
 		vertex    = 2,
 		trigger   = 3,
 		photon    = 4,
-		muon      = 5
+		muon      = 5,
+		electron  = 6
 	};
 	const vector<string> cut_name_string = {
 		"non",
@@ -19,7 +20,8 @@ public:
 		"vertex",
 		"trigger",
 		"photon",
-		"muon"
+		"muon",
+		"electron"
 	};
 	vector<Long64_t> n_selected;
 	vector<Double_t> efficiency;

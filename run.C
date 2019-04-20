@@ -28,6 +28,9 @@ void run(){
 		if( working.muon_cut()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::muon);}
 		else continue;
+		if( working.electron_cut()      > 0 ){
+			cut_flow_table.fill(CutFlowTable::cut_name::electron);}
+		else continue;
 	}
 	
 	cut_flow_table.calculate_write("efficieny.csv");

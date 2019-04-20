@@ -38,6 +38,22 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("Muon_phi",1);
 	fChain->SetBranchStatus("Muon_tight",1);
 	fChain->SetBranchStatus("Muon_isGlobal",1);
+
+	// electron branches
+	fChain->SetBranchStatus("patElectron_pt", 1);
+	fChain->SetBranchStatus("patElectron_eta",1);
+	fChain->SetBranchStatus("patElectron_phi",1);
+	fChain->SetBranchStatus("patElectron_expectedMissingInnerHits",1);
+	fChain->SetBranchStatus("patElectron_passConversionVeto",1);
+	fChain->SetBranchStatus("PatEle_HOverE",  1);
+	fChain->SetBranchStatus("PatEle_ScEt",    1);
+	fChain->SetBranchStatus("PatEle_EtaSc",   1);
+	fChain->SetBranchStatus("PatEle_DeltaPhiIn",1);
+	fChain->SetBranchStatus("PatEle_DeltaEtaIn",1);
+	fChain->SetBranchStatus("PatEle_SigmaIetaIeta",1);
+	fChain->SetBranchStatus("PatEle_superCluster_energy",1);
+	fChain->SetBranchStatus("PatEle_DeltaEtaIn",1);
+	fChain->SetBranchStatus("PatEle_DeltaPhiIn",1);
 }
 
 //build objects
@@ -86,14 +102,43 @@ void SmallClassExtra::build_muons(){
 		p.build();
 		MyMuons.push_back(p);
 	}
-	if(MyMuons.size() > 1){
+	/*if(MyMuons.size() > 1){
 		MyMuons.at(0).print_all(MyMuons);	
+	}*/
+}
+
+//build electrons
+void SmallClassExtra::build_electrons(){
+	MyElectrons.clear();
+	for(int i=0; i< patElectron_pt->size() ; i++){
+		MyElectron e;
+		e.SetPtEtaPhiM( patElectron_pt->at(i),
+				patElectron_eta->at(i),
+				patElectron_phi->at(i),
+				0.0005
+				);
+		e.set_ExpectedMissingInnerHits(patElectron_expectedMissingInnerHits->at(i));
+		e.set_PassConversionVeto(patElectron_passConversionVeto->at(i));
+		e.set_HoverE(PatEle_HOverE->at(i));
+		e.set_SigmaIEtaIEta(PatEle_SigmaIetaIeta->at(i));
+		e.set_DeltaPhiInSeed(PatEle_DeltaPhiIn->at(i));
+		e.set_DeltaEtaInSeed(PatEle_DeltaEtaIn->at(i));
+		e.set_SCE(PatEle_superCluster_energy->at(i));
+		e.set_SCEt(PatEle_ScEt->at(i));
+		e.set_SCEta(PatEle_EtaSc->at(i));
+		e.build();
+		MyElectrons.push_back(e);
+	}
+	if(MyElectrons.size() > 1){
+		MyElectrons.at(0).print_all(MyElectrons);	
 	}
 }
 
+//build all objects
 void SmallClassExtra::build_all(){
 	build_photons();
 	build_muons();
+	build_electrons();
 }
 //cuts
 Int_t SmallClassExtra::genweight_cut(){
@@ -139,3 +184,12 @@ Int_t SmallClassExtra::muon_cut(){
 	if ( n_passed >= 1 ) return 1;
 	return -1;
 }
+//electron cut
+Int_t SmallClassExtra::electron_cut(){
+	//Int_t n_passed = 0;
+	//for(auto e: MyElectrons){
+	//	n_passed++;
+	//}
+	return 1 ;
+}	
+

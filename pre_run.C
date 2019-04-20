@@ -3,9 +3,9 @@
 #include "SmallClassExtra.C"
 #include "CutFlowTable.h"
 #include "CutFlowTable.C"
-#include "MyPhoton.h"
 #include "MyPhoton.C"
 #include "MyMuon.C"
+#include "MyElectron.C"
 #include "./ID/ID.C"
 
 #include <string>
