@@ -54,6 +54,7 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("PatEle_superCluster_energy",1);
 	fChain->SetBranchStatus("PatEle_DeltaEtaIn",1);
 	fChain->SetBranchStatus("PatEle_DeltaPhiIn",1);
+	fChain->SetBranchStatus("PatEle_relIso03",1);
 }
 
 //build objects
@@ -126,6 +127,8 @@ void SmallClassExtra::build_electrons(){
 		e.set_SCE(PatEle_superCluster_energy->at(i));
 		e.set_SCEt(PatEle_ScEt->at(i));
 		e.set_SCEta(PatEle_EtaSc->at(i));
+		e.set_PFIso(PatEle_relIso03->at(i));
+                e.set_rho(FixedGridRhoFastjetAll);
 		e.build();
 		MyElectrons.push_back(e);
 	}
@@ -186,10 +189,12 @@ Int_t SmallClassExtra::muon_cut(){
 }
 //electron cut
 Int_t SmallClassExtra::electron_cut(){
-	//Int_t n_passed = 0;
-	//for(auto e: MyElectrons){
-	//	n_passed++;
-	//}
-	return 1 ;
+	// veto event if one or more electron are passed
+	Int_t n_passed = 0;
+	for(auto e: MyElectrons){
+		if(e.is_passed() > 0 ) n_passed++;
+	}
+	if(n_passed > 0) return -1 ;
+	else return 1;
 }	
 

@@ -14,9 +14,4 @@ Double_t photon_calculate_EAPho(const Double_t& eta){
 Double_t photon_calculate_EANeu(const Double_t& eta){
 		return PhotonID_Summer17_v2_ID::calculate_EANeu(eta);
 }
-
-// an object contains electron barrel information
-ElectronID_Summer17_v2_ID::BarrelTight electron_barrel_tight;
-
-
 #endif

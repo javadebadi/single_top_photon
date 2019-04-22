@@ -13,12 +13,17 @@ private:
 	Double_t SigmaIPhiIPhi            = 0;
 	Double_t DeltaEtaInSeed           = 0;
 	Double_t DeltaPhiInSeed           = 0;
-	Double_t    OneOverEMinusOneOverP    = 0;
+	Double_t OneOverEMinusOneOverP    = 0;
 	Double_t SCE                      = 0;
 	Double_t SCEt                     = 0;
 	Double_t SCEta                    = 0;
 	Int_t    ExpectedMissingInnerHits = 0;
 	Int_t    PassConversionVeto       = 0;
+	Double_t PFIso                    = 0;
+        Double_t rho = 0;       // not electron attribute but needed for photon
+                                // in future may be updated
+	Double_t EA                       = 0;
+	Double_t RelCombPFIsoWithEACorrection = 0;
 	// members which should be calculated (they don't exist in root file)
 	
 	
@@ -45,10 +50,18 @@ public:
 	Int_t get_ExpectedMissingInnerHits(){return ExpectedMissingInnerHits;}
 	void set_PassConversionVeto(const Int_t &x){PassConversionVeto = x;}
 	Int_t get_PassConversionVeto(){return PassConversionVeto;}
+	void set_PFIso(const Double_t &x){PFIso = x;}
+	Double_t get_PFIso(){return PFIso;}
+	void set_rho(const Double_t &x){rho = x;}
+	Double_t get_rho(){return rho;}
+	void set_EA(const Double_t &x){EA = x;}
+	Double_t get_EA(){return EA;}
+	void set_RelCombPFIsoWithEACorrection(const Double_t &x){RelCombPFIsoWithEACorrection = x;}
+	Double_t get_RelCombPFIsoWithEACorrection(){return RelCombPFIsoWithEACorrection;}
 
+	void calculate_RelCombPFIsoWithEACorrection();
 	void calculate_OneOverEMinusOneOverP();
 	void build();
-	Int_t is_tight();
 	Int_t is_passed();
 	void print();
 	void print_all(vector<MyElectron>&);
