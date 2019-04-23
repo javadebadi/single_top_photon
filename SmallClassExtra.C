@@ -61,6 +61,14 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("Jet_eta",1);
 	fChain->SetBranchStatus("Jet_phi",1);
 	fChain->SetBranchStatus("Jet_mass",1);
+	fChain->SetBranchStatus("Jet_neutralHadEnergyFraction",1);
+	fChain->SetBranchStatus("Jet_neutralEmEmEnergyFraction",1);
+	fChain->SetBranchStatus("Jet_chargedHadronEnergyFraction",1);
+	fChain->SetBranchStatus("Jet_chargedEmEnergyFraction",1);
+	fChain->SetBranchStatus("Jet_muonEnergyFraction",1);
+	fChain->SetBranchStatus("Jet_numberOfConstituents",1);
+	fChain->SetBranchStatus("Jet_chargedMultiplicity",1);
+	fChain->SetBranchStatus("Jet_neutralMultiplicity",1);
 }
 
 //build objects
@@ -152,6 +160,14 @@ void SmallClassExtra::build_jet(){
 				Jet_eta  ->at(i),
 				Jet_phi  ->at(i),
 				Jet_mass ->at(i));
+		j.set_NHF( Jet_neutralHadEnergyFraction          ->at(i));
+		j.set_NEMF(Jet_neutralEmEmEnergyFraction         ->at(i));
+		j.set_CHF( Jet_chargedHadronEnergyFraction       ->at(i));
+		j.set_CEMF(Jet_chargedEmEnergyFraction           ->at(i));
+		j.set_MUF( Jet_muonEnergyFraction                ->at(i));
+		j.set_NumConst(Jet_numberOfConstituents          ->at(i));
+		j.set_CHM( Jet_chargedMultiplicity               ->at(i));
+		j.set_NumNeutralParticles(Jet_neutralMultiplicity->at(i));
 		MyJets.push_back(j);
 	}
 	if(MyJets.size() > 1){
