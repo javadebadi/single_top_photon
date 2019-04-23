@@ -6,6 +6,7 @@
 #include "MyPhoton.C"
 #include "MyMuon.C"
 #include "MyElectron.C"
+#include "MyJet.C"
 #include "./ID/ID.C"
 
 #include <string>

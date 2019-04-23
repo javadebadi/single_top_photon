@@ -55,6 +55,12 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("PatEle_DeltaEtaIn",1);
 	fChain->SetBranchStatus("PatEle_DeltaPhiIn",1);
 	fChain->SetBranchStatus("PatEle_relIso03",1);
+
+	// Jet branches
+	fChain->SetBranchStatus("Jet_pt",1);
+	fChain->SetBranchStatus("Jet_eta",1);
+	fChain->SetBranchStatus("Jet_phi",1);
+	fChain->SetBranchStatus("Jet_mass",1);
 }
 
 //build objects
@@ -132,16 +138,32 @@ void SmallClassExtra::build_electrons(){
 		e.build();
 		MyElectrons.push_back(e);
 	}
-	if(MyElectrons.size() > 1){
+	/*if(MyElectrons.size() > 1){
 		MyElectrons.at(0).print_all(MyElectrons);	
+	}*/
+}
+//build jets
+void SmallClassExtra::build_jet(){
+	MyJets.clear();
+	// NOT COMPLETE at all
+	for(int i=0; i < Jet_pt->size(); i++){
+		MyJet j;
+		j.SetPtEtaPhiM(	Jet_pt   ->at(i),
+				Jet_eta  ->at(i),
+				Jet_phi  ->at(i),
+				Jet_mass ->at(i));
+		MyJets.push_back(j);
+	}
+	if(MyJets.size() > 1){
+		MyJets.at(0).print_all(MyJets);	
 	}
 }
-
 //build all objects
 void SmallClassExtra::build_all(){
 	build_photons();
 	build_muons();
 	build_electrons();
+	build_jet();
 }
 //cuts
 Int_t SmallClassExtra::genweight_cut(){
@@ -197,4 +219,8 @@ Int_t SmallClassExtra::electron_cut(){
 	if(n_passed > 0) return -1 ;
 	else return 1;
 }	
-
+//jet cut
+Int_t SmallClassExtra::jet_cut(){
+	//NOT COMPLETE
+	return 1;
+}

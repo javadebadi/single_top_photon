@@ -3,6 +3,7 @@
 
 #include "PhotonID.h"
 #include "ElectronID.h"
+#include "JetID.h"
 
 #endif
 

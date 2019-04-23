@@ -12,7 +12,8 @@ public:
 		trigger   = 3,
 		photon    = 4,
 		muon      = 5,
-		electron  = 6
+		electron  = 6,
+		jet       = 7
 	};
 	const vector<string> cut_name_string = {
 		"non",
@@ -21,7 +22,8 @@ public:
 		"trigger",
 		"photon",
 		"muon",
-		"electron"
+		"electron",
+		"jet"
 	};
 	vector<Long64_t> n_selected;
 	vector<Double_t> efficiency;
