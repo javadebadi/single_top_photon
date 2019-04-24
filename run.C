@@ -4,11 +4,12 @@ VectorDouble_t x;
 
      
 void run(){
-
+	time_t tic, toc;
+	tic = time(0);
 	SmallClassExtra working;
 	Long64_t n_entries = working.fChain->GetEntries();
 	working.turn_on_necessary_branches();
-	n_entries = 100000;
+	//n_entries = 100000;
 	CutFlowTable cut_flow_table(n_entries);
 	for(Long64_t event =0; event < n_entries; event++){
 		print(event+1,n_entries,10000);
@@ -41,10 +42,14 @@ void run(){
 		else continue;
 		x.set_root_file_name("test000.root");
 		x.push_back(working.MyMETs[0].Pt());
-		x.write_to_root();
+
 
 	}
-	
+	x.write_to_root();	
 	cut_flow_table.calculate_write("efficieny.csv");
+	toc = time(0);
+	cout<<" ================ Time ================ "<<endl;
+	cout<<" It took "<<difftime(toc,tic)/60.0<<" minutes"<<endl;
+	cout<<" ====================================== "<<endl;
 
 }
