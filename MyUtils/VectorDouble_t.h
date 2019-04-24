@@ -27,7 +27,7 @@ public:
 	TString get_branch_name(){return branch_name;}
 	void set_branch_name(const TString& b){branch_name = b;}
 	TString get_root_file_name(){return root_file_name;}
-	void set_root_file_name(const TString& r){return root_file_name = r;}
+	void set_root_file_name(const TString& r){root_file_name = r;}
 	TString get_csv_file_name(){return csv_file_name;}
 	void set_csv_file_name(const TString& c){csv_file_name = c;}
 	TString get_delimator(){return delimator;}
