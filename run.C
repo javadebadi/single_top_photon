@@ -1,5 +1,7 @@
 #include "pre_run.C"
 
+VectorDouble_t x;
+
      
 void run(){
 
@@ -37,6 +39,9 @@ void run(){
 		if( working.met_cut()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::met);}
 		else continue;
+		x.set_root_file_name("test000.root");
+		x.push_back(working.MyMETs[0].Pt());
+		x.write_to_root();
 
 	}
 	

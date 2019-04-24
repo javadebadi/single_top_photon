@@ -2,4 +2,4 @@
 
 rm -rf *.txt
 rm -rf *.csv
-
+rm -rf *.root
