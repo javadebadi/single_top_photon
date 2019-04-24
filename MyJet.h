@@ -11,6 +11,7 @@ private:
 	Int_t    NumConst = 0; // Number  Of     Constituents
 	Int_t    CHM      = 0; // Charged Multiplicity
 	Int_t    NumNeutralParticles = 0; // Number Of Neutral Particles
+	Double_t    bDiscriminator_pfCISVV2 = 0; // b discriminator using CSVv2 algorithm
 	
 public:
 
@@ -30,8 +31,14 @@ public:
 	Int_t get_CHM(){return CHM;}
 	void set_NumNeutralParticles(const Int_t &x){NumNeutralParticles = x;}
 	Int_t get_NumNeutralParticles(){return NumNeutralParticles;}
+	void set_bDiscriminator_pfCISVV2(const Double_t &x){bDiscriminator_pfCISVV2 = x;}
+	Double_t get_bDiscriminator_pfCISVV2(){return bDiscriminator_pfCISVV2;}
 
-
+	
+	void build();
+	Int_t is_loose();
+	Int_t is_passed();
+	Int_t is_b_tagged();
 	void print();
 	void print_all(vector<MyJet> &);
 };

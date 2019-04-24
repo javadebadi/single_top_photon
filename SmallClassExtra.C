@@ -69,6 +69,7 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("Jet_numberOfConstituents",1);
 	fChain->SetBranchStatus("Jet_chargedMultiplicity",1);
 	fChain->SetBranchStatus("Jet_neutralMultiplicity",1);
+	fChain->SetBranchStatus("Jet_bDiscriminator_pfCISVV2",1);
 }
 
 //build objects
@@ -160,14 +161,16 @@ void SmallClassExtra::build_jet(){
 				Jet_eta  ->at(i),
 				Jet_phi  ->at(i),
 				Jet_mass ->at(i));
-		j.set_NHF( Jet_neutralHadEnergyFraction          ->at(i));
-		j.set_NEMF(Jet_neutralEmEmEnergyFraction         ->at(i));
-		j.set_CHF( Jet_chargedHadronEnergyFraction       ->at(i));
-		j.set_CEMF(Jet_chargedEmEnergyFraction           ->at(i));
-		j.set_MUF( Jet_muonEnergyFraction                ->at(i));
-		j.set_NumConst(Jet_numberOfConstituents          ->at(i));
-		j.set_CHM( Jet_chargedMultiplicity               ->at(i));
-		j.set_NumNeutralParticles(Jet_neutralMultiplicity->at(i));
+		j.set_NHF( Jet_neutralHadEnergyFraction                   ->at(i));
+		j.set_NEMF(Jet_neutralEmEmEnergyFraction                  ->at(i));
+		j.set_CHF( Jet_chargedHadronEnergyFraction                ->at(i));
+		j.set_CEMF(Jet_chargedEmEnergyFraction                    ->at(i));
+		j.set_MUF( Jet_muonEnergyFraction                         ->at(i));
+		j.set_NumConst(Jet_numberOfConstituents                   ->at(i));
+		j.set_CHM( Jet_chargedMultiplicity                        ->at(i));
+		j.set_NumNeutralParticles(Jet_neutralMultiplicity         ->at(i));
+		j.set_bDiscriminator_pfCISVV2(Jet_bDiscriminator_pfCISVV2 ->at(i));
+		j.build();
 		MyJets.push_back(j);
 	}
 	if(MyJets.size() > 1){
@@ -238,5 +241,13 @@ Int_t SmallClassExtra::electron_cut(){
 //jet cut
 Int_t SmallClassExtra::jet_cut(){
 	//NOT COMPLETE
+	Int_t n_passed   = 0;
+	Int_t n_b_tagged = 0;
+	for(auto j: MyJets){
+		if(j.is_passed() > 0 ) n_passed++;
+		if(j.is_passed() > 0 && j.is_b_tagged() > 0 ) n_b_tagged++;
+	}
+	if ( n_b_tagged != 1 ) return -1;
+	if ( n_passed    < 2 ) return -1;
 	return 1;
 }
