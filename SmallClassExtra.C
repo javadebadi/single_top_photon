@@ -70,6 +70,10 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("Jet_chargedMultiplicity",1);
 	fChain->SetBranchStatus("Jet_neutralMultiplicity",1);
 	fChain->SetBranchStatus("Jet_bDiscriminator_pfCISVV2",1);
+
+	// met branches
+	fChain->SetBranchStatus("Met_type1PF_pt",1);
+	fChain->SetBranchStatus("Met_type1PF_phi",1);
 }
 
 //build objects
@@ -173,9 +177,16 @@ void SmallClassExtra::build_jet(){
 		j.build();
 		MyJets.push_back(j);
 	}
-	if(MyJets.size() > 1){
+	/*if(MyJets.size() > 1){
 		MyJets.at(0).print_all(MyJets);	
-	}
+	}*/
+}
+void SmallClassExtra::build_met(){
+	MyMETs.clear();
+	MyMET m;
+	m.SetPtEtaPhi(Met_type1PF_pt , 0.00000, Met_type1PF_phi);
+	MyMETs.push_back(m);
+	//m.print();
 }
 //build all objects
 void SmallClassExtra::build_all(){
@@ -183,6 +194,7 @@ void SmallClassExtra::build_all(){
 	build_muons();
 	build_electrons();
 	build_jet();
+	build_met();
 }
 //cuts
 Int_t SmallClassExtra::genweight_cut(){
@@ -249,5 +261,14 @@ Int_t SmallClassExtra::jet_cut(){
 	}
 	if ( n_b_tagged != 1 ) return -1;
 	if ( n_passed    < 2 ) return -1;
+	return 1;
+}
+//met cut
+Int_t SmallClassExtra::met_cut(){
+	Int_t n_passed = 0;
+	for(auto m: MyMETs){
+		if ( m.is_passed() > 0 ) n_passed++;
+	}
+	if(n_passed != 1 ) return -1;
 	return 1;
 }
