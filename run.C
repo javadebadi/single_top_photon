@@ -9,12 +9,11 @@ void run(){
 	SmallClassExtra working;
 	Long64_t n_entries = working.fChain->GetEntries();
 	working.turn_on_necessary_branches();
-	//n_entries = 100000;
+//	n_entries = 100000;
 	CutFlowTable cut_flow_table(n_entries);
 	for(Long64_t event =0; event < n_entries; event++){
 		print(event+1,n_entries,10000);
 		working.GetEntry(event);
-		working.build_all(); // build all objects
 		cut_flow_table.fill(CutFlowTable::cut_name::non);
 		if( working.genweight_cut() > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::genweight);}
@@ -25,31 +24,31 @@ void run(){
 		if( working.trigger_cut()   > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::trigger);}
 		else continue;
-		if( working.photon_cut()    > 0 ){
+		if( working.build_cut_photons()    > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::photon);}
 		else continue;
-		if( working.muon_cut()      > 0 ){
+		if( working.build_cut_muons()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::muon);}
 		else continue;
-		if( working.electron_cut()      > 0 ){
+		if( working.build_cut_electrons()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::electron);}
 		else continue;
-		if( working.jet_cut()      > 0 ){
+		if( working.build_cut_jets()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::jet);}
 		else continue;
-		if( working.met_cut()      > 0 ){
+		if( working.build_cut_met()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::met);}
 		else continue;
 		x.set_root_file_name("test000.root");
+
 		x.push_back(working.MyMETs[0].Pt());
 
 
 	}
 	x.write_to_root();	
 	cut_flow_table.calculate_write("efficieny.csv");
-	toc = time(0);
-	cout<<" ================ Time ================ "<<endl;
-	cout<<" It took "<<difftime(toc,tic)/60.0<<" minutes"<<endl;
-	cout<<" ====================================== "<<endl;
 
+
+	toc = time(0);
+	print_time(tic,toc);
 }

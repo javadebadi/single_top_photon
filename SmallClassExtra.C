@@ -156,7 +156,7 @@ void SmallClassExtra::build_electrons(){
 	}*/
 }
 //build jets
-void SmallClassExtra::build_jet(){
+void SmallClassExtra::build_jets(){
 	MyJets.clear();
 	// NOT COMPLETE at all
 	for(int i=0; i < Jet_pt->size(); i++){
@@ -193,7 +193,7 @@ void SmallClassExtra::build_all(){
 	build_photons();
 	build_muons();
 	build_electrons();
-	build_jet();
+	build_jets();
 	build_met();
 }
 //cuts
@@ -223,7 +223,7 @@ Int_t SmallClassExtra::trigger_cut(){
 	else return -1;
 }
 //phton cut
-Int_t SmallClassExtra::photon_cut(){
+Int_t SmallClassExtra::photons_cut(){
 	Int_t n_passed = 0;
 	for(auto p: MyPhotons){
 		if(p.is_passed() > 0) n_passed++;
@@ -232,7 +232,7 @@ Int_t SmallClassExtra::photon_cut(){
 	return -1;
 }
 //muon cut
-Int_t SmallClassExtra::muon_cut(){
+Int_t SmallClassExtra::muons_cut(){
 	Int_t n_passed = 0;
 	for(auto m: MyMuons){
 		if(m.is_passed() > 0 ) n_passed++;
@@ -241,7 +241,7 @@ Int_t SmallClassExtra::muon_cut(){
 	return -1;
 }
 //electron cut
-Int_t SmallClassExtra::electron_cut(){
+Int_t SmallClassExtra::electrons_cut(){
 	// veto event if one or more electron are passed
 	Int_t n_passed = 0;
 	for(auto e: MyElectrons){
@@ -251,7 +251,7 @@ Int_t SmallClassExtra::electron_cut(){
 	else return 1;
 }	
 //jet cut
-Int_t SmallClassExtra::jet_cut(){
+Int_t SmallClassExtra::jets_cut(){
 	//NOT COMPLETE
 	Int_t n_passed   = 0;
 	Int_t n_b_tagged = 0;
@@ -271,4 +271,29 @@ Int_t SmallClassExtra::met_cut(){
 	}
 	if(n_passed != 1 ) return -1;
 	return 1;
+}
+
+
+//build and cut simulatenously ( I added this part to code becuase the code was too slow)
+// In previous approach first I built all objects then applied cuts, which was very time consuming
+
+Int_t SmallClassExtra::build_cut_photons(){
+	build_photons();
+	return photons_cut();
+}
+Int_t SmallClassExtra::build_cut_muons(){
+	build_muons();
+	return muons_cut();
+}
+Int_t SmallClassExtra::build_cut_electrons(){
+	build_electrons();
+	return electrons_cut();
+}
+Int_t SmallClassExtra::build_cut_jets(){
+	build_jets();
+	return jets_cut();
+}
+Int_t SmallClassExtra::build_cut_met(){
+	build_met();
+	return met_cut();
 }

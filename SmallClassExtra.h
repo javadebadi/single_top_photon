@@ -26,7 +26,7 @@ public:
 	void build_photons();
 	void build_muons();
 	void build_electrons();
-	void build_jet();
+	void build_jets();
 	void build_met();
 	void build_all();
 
@@ -36,12 +36,18 @@ public:
 	Int_t vertex_cut();
 	// Trigger cut
 	Int_t trigger_cut();
-	Int_t photon_cut();
-	Int_t muon_cut();
-	Int_t electron_cut();
-	Int_t jet_cut();
+	Int_t photons_cut();
+	Int_t muons_cut();
+	Int_t electrons_cut();
+	Int_t jets_cut();
 	Int_t met_cut();	
 
+	// build and cut
+	Int_t build_cut_photons();
+	Int_t build_cut_muons();
+	Int_t build_cut_electrons();
+	Int_t build_cut_jets();
+	Int_t build_cut_met();
 };
 
 #endif

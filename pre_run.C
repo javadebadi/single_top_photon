@@ -28,3 +28,8 @@ void print(int n, int N, int d=10000){
 
 };
 
+void print_time(time_t tic, time_t toc){
+        cout<<" ================ Time ================ "<<endl;
+        cout<<" It took "<<int(difftime(toc,tic)/60)<<" minutes and "<<difftime(toc,tic)-60*int(difftime(toc,tic)/60)<<" seconds"<<endl;
+        cout<<" ====================================== "<<endl;
+}
