@@ -38,6 +38,19 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("Muon_phi",1);
 	fChain->SetBranchStatus("Muon_tight",1);
 	fChain->SetBranchStatus("Muon_isGlobal",1);
+	fChain->SetBranchStatus("Muon_chi2_globaltrk",1);
+	fChain->SetBranchStatus("Muon_pf",1);
+	fChain->SetBranchStatus("Muon_validHits",1);
+	fChain->SetBranchStatus("Muon_matchedStat",1);
+	fChain->SetBranchStatus("Muon_dB",1);
+	fChain->SetBranchStatus("Muon_besttrack_dz",1);
+	fChain->SetBranchStatus("Muon_validHitsInner",1);
+	fChain->SetBranchStatus("Muon_TLayers",1);
+	fChain->SetBranchStatus("Muon_isTrackerMuon",1);
+	fChain->SetBranchStatus("Muon_isoCharged",1);
+	fChain->SetBranchStatus("Muon_isoNeutralHadron",1);
+	fChain->SetBranchStatus("Muon_isoPhoton",1);
+	fChain->SetBranchStatus("Muon_isoPU",1);
 
 	// electron branches
 	fChain->SetBranchStatus("patElectron_pt", 1);
@@ -117,14 +130,27 @@ void SmallClassExtra::build_muons(){
 				Muon_phi->at(i),
 				0.106
 				);
-		p.set_tight(Muon_tight);
-		p.set_isGlobal(Muon_isGlobal);
+		p.set_tight(Muon_tight->at(i));
+		p.set_isGlobal(Muon_isGlobal->at(i));
+		p.set_isPF(Muon_pf->at(i));
+		p.set_globalTrackNormalizedChi2(Muon_chi2_globaltrk->at(i));
+		p.set_globalTrackHitPatternNumberOfValidMuonHits(Muon_validHits->at(i));
+		p.set_numberOfMatchedStations(Muon_matchedStat->at(i));
+		p.set_dB(Muon_dB -> at(i) );
+		p.set_muonBestTrackdz(Muon_besttrack_dz->at(i) );
+		p.set_innerTrackHitPatternNumberOfValidPixelHits(Muon_validHitsInner->at(i));
+		p.set_innerTrackHitPatternTrackerLayersWithMeasurement(Muon_TLayers->at(i));
+		p.set_isTrackerMuon(Muon_isTrackerMuon->at(i));
+		p.set_isoCharged(Muon_isoCharged ->at(i));
+		p.set_isoNeutralHadron(Muon_isoNeutralHadron ->at(i));
+		p.set_isoPhoton(Muon_isoPhoton ->at(i));
+		p.set_isoPU(Muon_isoPU ->at(i));
 		p.build();
 		MyMuons.push_back(p);
 	}
-	/*if(MyMuons.size() > 1){
+	if(MyMuons.size() > 1){
 		MyMuons.at(0).print_all(MyMuons);	
-	}*/
+	}
 }
 
 //build electrons

@@ -9,7 +9,7 @@ void run(){
 	SmallClassExtra working;
 	Long64_t n_entries = working.fChain->GetEntries();
 	working.turn_on_necessary_branches();
-//	n_entries = 100000;
+	n_entries = 100000;
 	CutFlowTable cut_flow_table(n_entries);
 	for(Long64_t event =0; event < n_entries; event++){
 		print(event+1,n_entries,10000);
