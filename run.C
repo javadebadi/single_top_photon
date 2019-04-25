@@ -1,9 +1,10 @@
 #include "pre_run.C"
 
-VectorDouble_t x;
 
      
 void run(){
+	VectorDouble_t muon_size;
+	muon_size.set_root_file_name("muon_size.root");
 	time_t tic, toc;
 	tic = time(0);
 	SmallClassExtra working;
@@ -30,6 +31,7 @@ void run(){
 		if( working.build_cut_muons()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::muon);}
 		else continue;
+		muon_size.push_back(working.MySelectedMuons.size());
 		if( working.build_cut_electrons()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::electron);}
 		else continue;
@@ -39,13 +41,10 @@ void run(){
 		if( working.build_cut_met()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::met);}
 		else continue;
-		x.set_root_file_name("test000.root");
-
-		x.push_back(working.MyMETs[0].Pt());
-
-
 	}
-	x.write_to_root();	
+	
+	muon_size.write_to_root();
+	working.Navigator.write_to_root();	
 	cut_flow_table.calculate_write("efficieny.csv");
 
 

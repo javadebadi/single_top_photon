@@ -30,6 +30,16 @@ Int_t MyMuon::is_passed(){
 	return 1;
 }
 
+Int_t MyMuon::is_further_passed(){
+
+	if ( Pt() < 15                ) return -1;
+	if ( TMath::Abs(Eta()) > 2.4  ) return -1;
+	if ( isGlobal == false        ) return -1;
+	if ( Irel >= 0.25             ) return -1;
+	return 1;
+
+}
+
 void MyMuon::print(){
 
         cout<<"(Pt,Eta,Phi,E) = "<<"("<<
@@ -51,6 +61,7 @@ void MyMuon::print(){
 	cout<<"is_tight()                       = "<<is_tight()<<endl;
 	cout<<"isGlobal                         = "<<isGlobal<<endl;
 	cout<<"is_passed()                      = "<<is_passed()<<endl;
+	cout<<"is_further_passed()              = "<<is_further_passed()<<endl;
 	cout<<"----------------------------------------------"<<endl;
 }
 

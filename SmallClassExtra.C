@@ -148,9 +148,9 @@ void SmallClassExtra::build_muons(){
 		p.build();
 		MyMuons.push_back(p);
 	}
-	if(MyMuons.size() > 1){
+	/*if(MyMuons.size() > 1){
 		MyMuons.at(0).print_all(MyMuons);	
-	}
+	}*/
 }
 
 //build electrons
@@ -207,6 +207,22 @@ void SmallClassExtra::build_jets(){
 		MyJets.at(0).print_all(MyJets);	
 	}*/
 }
+
+void SmallClassExtra::jet_lepton_cleaning(){
+
+	vector<int> index;
+	for(int i=0; i<MyJets.size(); i++){
+		//Navigator.push_back(MyJets.at(i).DeltaR(MySelectedMuons.at(0)) );
+		if( MyJets.at(i).DeltaR(MySelectedMuons.at(0)) < 0.15 ) index.push_back(i);
+	}
+	for(int t1 = index.size()-1; t1 >= 0; --t1){
+    		MyJets.erase(MyJets.begin()+index.at(t1));
+	}
+	for(int i=0; i<MyJets.size(); i++){
+		Navigator.push_back(MyJets.at(i).DeltaR(MySelectedMuons.at(0)) );
+	}
+}
+
 void SmallClassExtra::build_met(){
 	MyMETs.clear();
 	MyMET m;
@@ -222,6 +238,7 @@ void SmallClassExtra::build_all(){
 	build_jets();
 	build_met();
 }
+
 //cuts
 Int_t SmallClassExtra::genweight_cut(){
 	if ( genweight >= 0 ) return 1;
@@ -259,12 +276,19 @@ Int_t SmallClassExtra::photons_cut(){
 }
 //muon cut
 Int_t SmallClassExtra::muons_cut(){
+	MySelectedMuons.clear();
 	Int_t n_passed = 0;
+	Int_t n_further_passed = 0;
 	for(auto m: MyMuons){
-		if(m.is_passed() > 0 ) n_passed++;
+		if(m.is_passed()         > 0 ){
+			n_passed++;
+			MySelectedMuons.push_back(m);
+		}
+		else if(m.is_further_passed() > 0 ) n_further_passed++;
 	}
-	if ( n_passed >= 1 ) return 1;
-	return -1;
+
+	if ( n_passed != 1 || n_further_passed >= 1) return -1;
+	return 1;
 }
 //electron cut
 Int_t SmallClassExtra::electrons_cut(){
@@ -317,6 +341,7 @@ Int_t SmallClassExtra::build_cut_electrons(){
 }
 Int_t SmallClassExtra::build_cut_jets(){
 	build_jets();
+	jet_lepton_cleaning();
 	return jets_cut();
 }
 Int_t SmallClassExtra::build_cut_met(){

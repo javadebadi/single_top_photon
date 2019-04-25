@@ -62,6 +62,7 @@ public:
 	void build();
 	Int_t is_tight();
 	Int_t is_passed();
+	Int_t is_further_passed();
 	void print();
 	void print_all(vector<MyMuon>&);
 	

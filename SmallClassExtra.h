@@ -9,6 +9,7 @@
 #include "MyElectron.h"
 #include "MyJet.h"
 #include "MyMET.h"
+#include "./MyUtils/VectorDouble_t.h"
 
 class SmallClassExtra: public SmallClass{
 public:
@@ -17,6 +18,8 @@ public:
 	vector<MyElectron> MyElectrons;
 	vector<MyJet>      MyJets;
 	vector<MyMET>      MyMETs;
+	vector<MyMuon>     MySelectedMuons;
+	VectorDouble_t     Navigator;
 	
 	// Turn on only branches which are needed
 	void turn_on_necessary_branches();
@@ -27,6 +30,7 @@ public:
 	void build_muons();
 	void build_electrons();
 	void build_jets();
+	void jet_lepton_cleaning();
 	void build_met();
 	void build_all();
 
