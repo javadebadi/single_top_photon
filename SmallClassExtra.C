@@ -359,10 +359,10 @@ Int_t SmallClassExtra::met_cut(){
 }
 //othe cut
 Int_t SmallClassExtra::other_cut(){
-	if ( MySelectedMuons.at(0).DeltaR(MySelectedPhotons.at(0)) < 0.5 ) return -1;
-	if ( MySelectedBJets.at(0).DeltaR(MySelectedPhotons.at(0)) < 0.5 ) return -1;
+	if ( MySelectedMuons.at(0).DeltaR(MySelectedPhotons.at(0)) <= 0.5 ) return -1;
+	if ( MySelectedBJets.at(0).DeltaR(MySelectedPhotons.at(0)) <= 0.5 ) return -1;
 	for(auto j: MySelectedJets){
-		if( j.DeltaR(MySelectedPhotons.at(0)) < 0.5 ) return -1;
+		if( j.DeltaR(MySelectedPhotons.at(0)) <= 0.5 ) return -1;
 	}
 	return 1;
 }
