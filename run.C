@@ -3,8 +3,6 @@
 
      
 void run(){
-	VectorDouble_t muon_size;
-	muon_size.set_root_file_name("muon_size.root");
 	time_t tic, toc;
 	tic = time(0);
 	SmallClassExtra working;
@@ -16,40 +14,38 @@ void run(){
 		print(event+1,n_entries,10000);
 		working.GetEntry(event);
 		cut_flow_table.fill(CutFlowTable::cut_name::non);
-		if( working.genweight_cut() > 0 ){
+		if( working.genweight_cut() >            0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::genweight);}
 		else continue;
-		if(working.vertex_cut()     > 0 ){
+		if(working.vertex_cut()                > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::vertex);}
 		else continue;
-		if( working.trigger_cut()   > 0 ){
+		if( working.trigger_cut()              > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::trigger);}
 		else continue;
-		if( working.build_cut_photons()    > 0 ){
+		if( working.build_cut_photons()        > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::photon);}
 		else continue;
-		if( working.build_cut_muons()      > 0 ){
+		if( working.build_cut_muons()          > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::muon);}
 		else continue;
-		muon_size.push_back(working.MySelectedMuons.size());
 		if( working.build_cut_electrons()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::electron);}
 		else continue;
-		if( working.build_cut_jets()      > 0 ){
+		if( working.build_cut_jets()          > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::jet);}
 		else continue;
 		working.build_selected_jets();
-		if( working.build_cut_met()      > 0 ){
+		if( working.build_cut_met()           > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::met);}
 		else continue;
-		if( working.other_cut()      > 0 ){
+		if( working.other_cut()               > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::other_cut);}
 		else continue;
-
+		
 	}
 	
-	muon_size.write_to_root();
-	working.Navigator.write_to_root();	
+	working.plot_all();
 	cut_flow_table.calculate_write("efficieny.csv");
 
 

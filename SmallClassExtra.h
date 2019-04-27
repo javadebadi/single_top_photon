@@ -10,6 +10,7 @@
 #include "MyJet.h"
 #include "MyMET.h"
 #include "./MyUtils/VectorDouble_t.h"
+#include "./MyUtils/VectorVectorDouble_t.h"
 
 class SmallClassExtra: public SmallClass{
 public:
@@ -23,6 +24,7 @@ public:
 	vector<MyJet>      MySelectedJets;
 	vector<MyJet>      MySelectedBJets;
 	VectorDouble_t     Navigator;
+	VectorDouble_t     tempVectorDouble_t;
 	
 	// Turn on only branches which are needed
 	void turn_on_necessary_branches();
@@ -58,6 +60,14 @@ public:
 	Int_t build_cut_electrons();
 	Int_t build_cut_jets();
 	Int_t build_cut_met();
+
+	//plots
+	VectorVectorDouble_t DeltaR_jet_photon_before_cleaning_accumulated;
+	VectorVectorDouble_t DeltaR_jet_photon_after_cleaning_accumulated;
+	void find_DeltaR_MyJets_MySelectedPhotons();  // it is important where you use 
+					// this method, look at jet_build_cut
+					// method to find out why
+	void plot_all();
 };
 
 #endif

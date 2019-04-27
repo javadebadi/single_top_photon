@@ -62,7 +62,11 @@ Double_t VectorDouble_t::mean(){
 	}
 
 }
-
+void VectorDouble_t::add(const VectorDouble_t &v1){
+	for(auto v: v1){
+		this->push_back(v);
+	}
+}
 void VectorDouble_t::write_to_csv(){
 
                 ofstream csv_file;

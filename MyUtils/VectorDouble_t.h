@@ -41,6 +41,7 @@ public:
 	Double_t max();
 	Double_t sum();
 	Double_t mean();
+	void add(const VectorDouble_t &);
 	void write_to_csv();
 	void write_to_root();
 	void read_from_root();

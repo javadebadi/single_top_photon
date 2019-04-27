@@ -385,11 +385,28 @@ Int_t SmallClassExtra::build_cut_electrons(){
 }
 Int_t SmallClassExtra::build_cut_jets(){
 	build_jets();
-	jet_lepton_cleaning();
+	find_DeltaR_MyJets_MySelectedPhotons();
+	DeltaR_jet_photon_before_cleaning_accumulated.push_back(tempVectorDouble_t);
 	jet_photon_cleaning();
+	find_DeltaR_MyJets_MySelectedPhotons();
+	DeltaR_jet_photon_after_cleaning_accumulated.push_back(tempVectorDouble_t);
+	jet_lepton_cleaning();
 	return jets_cut();
 }
 Int_t SmallClassExtra::build_cut_met(){
 	build_met();
 	return met_cut();
+}
+
+void SmallClassExtra::find_DeltaR_MyJets_MySelectedPhotons(){
+	tempVectorDouble_t.clear();
+	for(auto j: MyJets){
+		tempVectorDouble_t.push_back(j.DeltaR(MySelectedPhotons.at(0)) );
+	}
+	
+}
+//plot
+void SmallClassExtra::plot_all(){
+	DeltaR_jet_photon_before_cleaning_accumulated.write_to_root("DeltaR_jet_photon_before_cleaning");
+	DeltaR_jet_photon_after_cleaning_accumulated.write_to_root("DeltaR_jet_photon_after_cleaning");
 }
