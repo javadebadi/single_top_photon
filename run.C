@@ -38,9 +38,14 @@ void run(){
 		if( working.build_cut_jets()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::jet);}
 		else continue;
+		working.build_selected_jets();
 		if( working.build_cut_met()      > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::met);}
 		else continue;
+		if( working.other_cut()      > 0 ){
+			cut_flow_table.fill(CutFlowTable::cut_name::other_cut);}
+		else continue;
+
 	}
 	
 	muon_size.write_to_root();

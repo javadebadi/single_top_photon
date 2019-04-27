@@ -207,7 +207,23 @@ void SmallClassExtra::build_jets(){
 		MyJets.at(0).print_all(MyJets);	
 	}*/
 }
-
+//jet photon cleaning
+void SmallClassExtra::jet_photon_cleaning(){
+	//Navigator.set_branch_name("jet_photon_DeltaR");
+	//Navigator.set_header_name("jet_photon_DeltaR");
+	vector<int> index;
+	for(int i=0; i<MyJets.size(); i++){
+		//Navigator.push_back(MyJets.at(i).DeltaR(MySelectedPhotons.at(0)) );
+		if( MyJets.at(i).DeltaR(MySelectedPhotons.at(0)) < 0.15 ) index.push_back(i);
+	}
+	for(int t1 = index.size()-1; t1 >= 0; --t1){
+    		MyJets.erase(MyJets.begin()+index.at(t1));
+	}
+	for(int i=0; i<MyJets.size(); i++){
+		//Navigator.push_back(MyJets.at(i).DeltaR(MySelectedPhotons.at(0)) );
+	}
+}
+// jet lepton cleaning
 void SmallClassExtra::jet_lepton_cleaning(){
 
 	vector<int> index;
@@ -219,7 +235,7 @@ void SmallClassExtra::jet_lepton_cleaning(){
     		MyJets.erase(MyJets.begin()+index.at(t1));
 	}
 	for(int i=0; i<MyJets.size(); i++){
-		Navigator.push_back(MyJets.at(i).DeltaR(MySelectedMuons.at(0)) );
+		//Navigator.push_back(MyJets.at(i).DeltaR(MySelectedMuons.at(0)) );
 	}
 }
 
@@ -238,7 +254,18 @@ void SmallClassExtra::build_all(){
 	build_jets();
 	build_met();
 }
-
+//build selected jets
+void SmallClassExtra::build_selected_jets(){
+	MySelectedJets.clear();
+	for(auto j:MyJets){
+		if(j.is_passed() > 0 && j.is_b_tagged() < 0){
+			MySelectedJets.push_back(j);
+		}
+		else if (j.is_passed() > 0 && j.is_b_tagged() > 0){
+			MySelectedBJets.push_back(j);
+		}
+	}
+}
 //cuts
 Int_t SmallClassExtra::genweight_cut(){
 	if ( genweight >= 0 ) return 1;
@@ -267,9 +294,13 @@ Int_t SmallClassExtra::trigger_cut(){
 }
 //phton cut
 Int_t SmallClassExtra::photons_cut(){
+	MySelectedPhotons.clear();
 	Int_t n_passed = 0;
 	for(auto p: MyPhotons){
-		if(p.is_passed() > 0) n_passed++;
+		if(p.is_passed() > 0){
+			n_passed++;
+			MySelectedPhotons.push_back(p);
+		}
 	}
 	if ( n_passed == 1 ) return 1;
 	return -1;
@@ -311,6 +342,10 @@ Int_t SmallClassExtra::jets_cut(){
 	}
 	if ( n_b_tagged != 1 ) return -1;
 	if ( n_passed    < 2 ) return -1;
+
+	for( auto j: MyJets){
+		if ( j.DeltaR(MySelectedMuons.at(0)) < 0.3) return -1;
+	}
 	return 1;
 }
 //met cut
@@ -320,6 +355,15 @@ Int_t SmallClassExtra::met_cut(){
 		if ( m.is_passed() > 0 ) n_passed++;
 	}
 	if(n_passed != 1 ) return -1;
+	return 1;
+}
+//othe cut
+Int_t SmallClassExtra::other_cut(){
+	if ( MySelectedMuons.at(0).DeltaR(MySelectedPhotons.at(0)) < 0.5 ) return -1;
+	if ( MySelectedBJets.at(0).DeltaR(MySelectedPhotons.at(0)) < 0.5 ) return -1;
+	for(auto j: MySelectedJets){
+		if( j.DeltaR(MySelectedPhotons.at(0)) < 0.5 ) return -1;
+	}
 	return 1;
 }
 
@@ -342,6 +386,7 @@ Int_t SmallClassExtra::build_cut_electrons(){
 Int_t SmallClassExtra::build_cut_jets(){
 	build_jets();
 	jet_lepton_cleaning();
+	jet_photon_cleaning();
 	return jets_cut();
 }
 Int_t SmallClassExtra::build_cut_met(){

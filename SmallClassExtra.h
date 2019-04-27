@@ -18,7 +18,10 @@ public:
 	vector<MyElectron> MyElectrons;
 	vector<MyJet>      MyJets;
 	vector<MyMET>      MyMETs;
+	vector<MyPhoton>   MySelectedPhotons;
 	vector<MyMuon>     MySelectedMuons;
+	vector<MyJet>      MySelectedJets;
+	vector<MyJet>      MySelectedBJets;
 	VectorDouble_t     Navigator;
 	
 	// Turn on only branches which are needed
@@ -30,9 +33,11 @@ public:
 	void build_muons();
 	void build_electrons();
 	void build_jets();
+	void jet_photon_cleaning();
 	void jet_lepton_cleaning();
 	void build_met();
 	void build_all();
+	void build_selected_jets();
 
 	// cuts
 	Int_t genweight_cut();
@@ -44,7 +49,8 @@ public:
 	Int_t muons_cut();
 	Int_t electrons_cut();
 	Int_t jets_cut();
-	Int_t met_cut();	
+	Int_t met_cut();
+	Int_t other_cut();	
 
 	// build and cut
 	Int_t build_cut_photons();

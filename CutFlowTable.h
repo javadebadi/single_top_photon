@@ -14,7 +14,8 @@ public:
 		muon      = 5,
 		electron  = 6,
 		jet       = 7,
-		met       = 8
+		met       = 8,
+		other_cut = 9
 	};
 	const vector<string> cut_name_string = {
 		"non",
@@ -25,7 +26,8 @@ public:
 		"muon",
 		"electron",
 		"jet",
-		"met"
+		"met",
+		"other_cut"
 	};
 	vector<Long64_t> n_selected;
 	vector<Double_t> efficiency;
