@@ -209,27 +209,41 @@ void SmallClassExtra::build_jets(){
 }
 //jet photon cleaning
 void SmallClassExtra::jet_photon_cleaning(){
-	//Navigator.set_branch_name("jet_photon_DeltaR");
-	//Navigator.set_header_name("jet_photon_DeltaR");
 	vector<int> index;
-	for(int i=0; i<MyJets.size(); i++){
-		//Navigator.push_back(MyJets.at(i).DeltaR(MySelectedPhotons.at(0)) );
-		if( MyJets.at(i).DeltaR(MySelectedPhotons.at(0)) < 0.15 ) index.push_back(i);
+	for(auto m: MyPhotons){
+		for(int i=0; i<MyJets.size(); i++){
+			if( MyJets.at(i).DeltaR(m) < 0.15 ) index.push_back(i);
+		}
 	}
 	for(int t1 = index.size()-1; t1 >= 0; --t1){
     		MyJets.erase(MyJets.begin()+index.at(t1));
 	}
-	for(int i=0; i<MyJets.size(); i++){
-		//Navigator.push_back(MyJets.at(i).DeltaR(MySelectedPhotons.at(0)) );
-	}
 }
-// jet lepton cleaning
-void SmallClassExtra::jet_lepton_cleaning(){
+// jet electron cleaning
+void SmallClassExtra::jet_electron_cleaning(){
 
 	vector<int> index;
-	for(int i=0; i<MyJets.size(); i++){
+	for(auto m: MyElectrons){
+		for(int i=0; i<MyJets.size(); i++){
+			if( MyJets.at(i).DeltaR(m) < 0.15 ) index.push_back(i);
+		}
+	}
+	for(int t1 = index.size()-1; t1 >= 0; --t1){
+    		MyJets.erase(MyJets.begin()+index.at(t1));
+	}
+}
+// jet muon cleaning
+void SmallClassExtra::jet_muon_cleaning(){
+
+	vector<int> index;
+	/*for(int i=0; i<MyJets.size(); i++){
 		//Navigator.push_back(MyJets.at(i).DeltaR(MySelectedMuons.at(0)) );
 		if( MyJets.at(i).DeltaR(MySelectedMuons.at(0)) < 0.15 ) index.push_back(i);
+	}*/
+	for(auto m: MyMuons){
+		for(int i=0; i<MyJets.size(); i++){
+			if( MyJets.at(i).DeltaR(m) < 0.15 ) index.push_back(i);
+		}
 	}
 	for(int t1 = index.size()-1; t1 >= 0; --t1){
     		MyJets.erase(MyJets.begin()+index.at(t1));
@@ -239,6 +253,12 @@ void SmallClassExtra::jet_lepton_cleaning(){
 	}
 }
 
+//jet lepton cleaning
+void SmallClassExtra::jet_lepton_cleaning(){
+	jet_electron_cleaning();
+	jet_muon_cleaning();
+}
+// build met
 void SmallClassExtra::build_met(){
 	MyMETs.clear();
 	MyMET m;

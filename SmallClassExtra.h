@@ -36,6 +36,8 @@ public:
 	void build_electrons();
 	void build_jets();
 	void jet_photon_cleaning();
+	void jet_electron_cleaning();
+	void jet_muon_cleaning();
 	void jet_lepton_cleaning();
 	void build_met();
 	void build_all();
