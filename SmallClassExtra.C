@@ -115,9 +115,9 @@ void SmallClassExtra::build_photons(){
 		p.build();
 		MyPhotons.push_back(p);
 	}
-	/*if(MyPhotons.size() > 1){
+	if(MyPhotons.size() > 1){
 		MyPhotons.at(0).print_all(MyPhotons);	
-	}*/
+	}
 }
 //build muons
 void SmallClassExtra::build_muons(){

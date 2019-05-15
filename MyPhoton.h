@@ -3,6 +3,7 @@
 
 #include "TLorentzVector.h"
 #include "Standards.h"
+#include "./Photon_SF/Photon_SF.h"
 #include <vector>
 
 
@@ -30,7 +31,7 @@ private:
 	Double_t PFPhoIso_corrected = 0;
 	Double_t PFNeuIso_corrected = 0;
 	
-	
+	Double_t SF = 0; // photon scale factor
 public:
 	void set_HoverE(const Double_t &x){HoverE = x;}
 	Double_t get_HoverE(){return HoverE;}
