@@ -4,3 +4,4 @@
 *.txt
 *.root
 *.swp
+.ipynb_checkpoints/
