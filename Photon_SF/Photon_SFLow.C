@@ -264,5 +264,5 @@ Double_t photon_SFLow(Double_t eta, Double_t pt){
 	}
 	else cout<<"ERROR: UNEXPEDTED behavior in photon_SF function"<<endl;
 
-	return	1000000<<endl;
+	return	1000000;
 }

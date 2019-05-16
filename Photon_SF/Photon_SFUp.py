@@ -214,7 +214,7 @@ dotC += "\t\t return "+str(central)+";\n\t}"
 ##################
 
 dotC += "\n\telse cout<<\"ERROR: UNEXPEDTED behavior in photon_SF function\"<<endl;\n"
-dotC += "\n\treturn\t1000000<<endl;\n"
+dotC += "\n\treturn\t1000000;\n"
 dotC+="}"
 
 
