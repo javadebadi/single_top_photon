@@ -14,7 +14,9 @@ void MyPhoton::build(){
 	calculate_PFNeuIso_corrected();
 
 	// scale factor
-	SF = photon_SF(Eta(),Pt());
+	SF    = photon_SF( Eta(), Pt());
+	SFLow = photon_SFLow( Eta(), Pt());
+	SFUp  = photon_SFUp( Eta(), Pt());
 }
 
 
@@ -59,7 +61,7 @@ void MyPhoton::print(){
 	cout<<"PFNeuIso_corrected = "<<PFNeuIso_corrected<<endl;
 	cout<<"is_tight()         = "<<is_tight()<<endl;
 	cout<<"is_passed()        = "<<is_passed()<<endl;
-	cout<<"Scale Factor       = "<<SF<<endl;
+	cout<<"Scale Factor(Low,Central,Up)= "<<SFLow<<","<<SF<<","<<SFUp<<endl;
 	cout<<"----------------------------------------------"<<endl;
 }
 
