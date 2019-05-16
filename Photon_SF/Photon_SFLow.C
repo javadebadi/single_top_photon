@@ -1,6 +1,6 @@
 #include "Photon_SFLow.h"
 
-Double_t photon_SF(Double_t eta, Double_t pt){
+Double_t photon_SFLow(Double_t eta, Double_t pt){
 	if( eta > -2.5 && eta <= -2.0 && pt > 20.0 && pt <= 35.0 ){
 		return	0.909922262309;
 	}
@@ -263,4 +263,6 @@ Double_t photon_SF(Double_t eta, Double_t pt){
 		 return 0.990435494107;
 	}
 	else cout<<"ERROR: UNEXPEDTED behavior in photon_SF function"<<endl;
+
+	return	1000000<<endl;
 }

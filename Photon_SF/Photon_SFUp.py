@@ -138,7 +138,7 @@ print(dotH)
 dotC = str()
 
 dotC += "#include \""+dotH_name+"\"\n\n"
-dotC += "Double_t photon_SF(Double_t eta, Double_t pt){\n"
+dotC += func_type+" "+func_name+"("+x_type+" "+x_name+", "+y_type+" "+y_name+"){\n"
 for x in xrange(1,nx+1):
     for y in xrange(1,ny+1):
         lowedge_x, upedge_x, lowedge_y, upedge_y = find_edges(h,x,y)
@@ -214,6 +214,7 @@ dotC += "\t\t return "+str(central)+";\n\t}"
 ##################
 
 dotC += "\n\telse cout<<\"ERROR: UNEXPEDTED behavior in photon_SF function\"<<endl;\n"
+dotC += "\n\treturn\t1000000<<endl;\n"
 dotC+="}"
 
 

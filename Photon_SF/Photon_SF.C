@@ -263,4 +263,6 @@ Double_t photon_SF(Double_t eta, Double_t pt){
 		 return 1.04922640324;
 	}
 	else cout<<"ERROR: UNEXPEDTED behavior in photon_SF function"<<endl;
+
+	return	1000000<<endl;
 }
