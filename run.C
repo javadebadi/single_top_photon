@@ -42,6 +42,7 @@ void run(){
 		if( working.other_cut()               > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::other_cut);}
 		else continue;
+		working.build_pileUp_SF();
 		
 	}
 	

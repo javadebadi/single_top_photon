@@ -11,6 +11,9 @@
 #include "MyMET.h"
 #include "./MyUtils/VectorDouble_t.h"
 #include "./MyUtils/VectorVectorDouble_t.h"
+#include "./PileUp_SF/PileUp_SF.h"
+#include "./PileUp_SF/PileUp_SFLow.h"
+#include "./PileUp_SF/PileUp_SFUp.h"
 
 class SmallClassExtra: public SmallClass{
 public:
@@ -25,6 +28,9 @@ public:
 	vector<MyJet>      MySelectedBJets;
 	VectorDouble_t     Navigator;
 	VectorDouble_t     tempVectorDouble_t;
+	Double_t           PileUp_SF;
+	Double_t           PileUP_SFLow;
+	Double_t           PileUP_SFUp;
 	
 	// Turn on only branches which are needed
 	void turn_on_necessary_branches();
@@ -35,6 +41,7 @@ public:
 	void build_muons();
 	void build_electrons();
 	void build_jets();
+	void build_pileUp_SF();
 	void jet_photon_cleaning();
 	void jet_electron_cleaning();
 	void jet_muon_cleaning();

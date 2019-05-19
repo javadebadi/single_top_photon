@@ -14,7 +14,8 @@ void SmallClassExtra::turn_on_necessary_branches(){
         fChain->SetBranchStatus("Flag_EcalDeadCellTriggerPrimitiveFilter",1);
         fChain->SetBranchStatus("Flag_eeBadScFilter",1);
 	fChain->SetBranchStatus("Flag_goodVertices",1);
-
+	//pileUp
+	fChain->SetBranchStatus("nTrueInt",1);
 	// trigger branches
 	fChain->SetBranchStatus("HLT_IsoTkMu24",1);
 	fChain->SetBranchStatus("HLT_IsoMu24"  ,1);
@@ -83,6 +84,7 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	fChain->SetBranchStatus("Jet_chargedMultiplicity",1);
 	fChain->SetBranchStatus("Jet_neutralMultiplicity",1);
 	fChain->SetBranchStatus("Jet_bDiscriminator_pfCISVV2",1);
+	fChain->SetBranchStatus("Jet_mcMatchFlav",1);
 
 	// met branches
 	fChain->SetBranchStatus("Met_type1PF_pt",1);
@@ -115,9 +117,9 @@ void SmallClassExtra::build_photons(){
 		p.build();
 		MyPhotons.push_back(p);
 	}
-	if(MyPhotons.size() > 1){
+	/*if(MyPhotons.size() > 1){
 		MyPhotons.at(0).print_all(MyPhotons);	
-	}
+	}*/
 }
 //build muons
 void SmallClassExtra::build_muons(){
@@ -265,6 +267,12 @@ void SmallClassExtra::build_met(){
 	m.SetPtEtaPhi(Met_type1PF_pt , 0.00000, Met_type1PF_phi);
 	MyMETs.push_back(m);
 	//m.print();
+}
+//build pileUp
+void SmallClassExtra::build_pileUp_SF(){
+	PileUp_SF    = pileUp_SF(nTrueInt);
+	PileUp_SFLow = pileUp_SFLow(nTrueInt);
+	PileUp_SFUp  = pileUp_SFUp(nTrueInt);
 }
 //build all objects
 void SmallClassExtra::build_all(){

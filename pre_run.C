@@ -17,6 +17,9 @@
 #include "./Photon_SF/Photon_SF.C"
 #include "./Photon_SF/Photon_SFLow.C"
 #include "./Photon_SF/Photon_SFUp.C"
+#include "./PileUp_SF/PileUp_SF.C"
+#include "./PileUp_SF/PileUp_SFLow.C"
+#include "./PileUp_SF/PileUp_SFUp.C"
 
 #include <string>
 void print(int n, int N, int d=10000){
