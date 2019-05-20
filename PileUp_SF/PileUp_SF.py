@@ -1,55 +1,55 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[15]:
 
 
 import ROOT
 
 
-# In[2]:
+# In[16]:
 
 
 from PileUp_SF_config import *
 
 
-# In[3]:
+# In[17]:
 
 
 from ROOT import TFile, TH2F, TCanvas, TH1D, TH1F
 
 
-# In[4]:
+# In[18]:
 
 
 f  = TFile(PileUp_SF_path_Data)
 
 
-# In[5]:
+# In[19]:
 
 
 f.ls()
 
 
-# In[6]:
+# In[20]:
 
 
 h = TH1D()
 
 
-# In[7]:
+# In[21]:
 
 
 c = TCanvas("SF","SF",600,400)
 
 
-# In[8]:
+# In[22]:
 
 
 f.GetObject("pileup",h)
 
 
-# In[9]:
+# In[23]:
 
 
 h.Draw("colz")
@@ -57,7 +57,7 @@ c.Draw()
 c.SaveAs("PileUp_SF.pdf")
 
 
-# In[10]:
+# In[24]:
 
 
 #normalize histogram
@@ -66,7 +66,7 @@ print("# bins X = "+str(nx))
 h.Scale(1.0/h.Integral())
 
 
-# In[12]:
+# In[30]:
 
 
 # Read text file (MC values)
@@ -75,10 +75,10 @@ mc = str()
 for line in txt:
     mc += line
 mc = mc.strip().split("=")[1].split("{")[1].split("}")[0].split(" ,")
-mc = map(lambda x: float(x),mc)   
+mc = map(lambda x: float(x),mc)
 
 
-# In[13]:
+# In[26]:
 
 
 # Scale histogram (to match MC with Data)
@@ -87,7 +87,7 @@ for i in xrange(0,nx):
     h.SetBinContent(bin_index,(1.0/mc[i])*h.GetBinContent(bin_index) )
 
 
-# In[14]:
+# In[27]:
 
 
 h.Draw("colz")
@@ -95,7 +95,7 @@ c.Draw()
 c.SaveAs("PileUp_SF.pdf")
 
 
-# In[15]:
+# In[ ]:
 
 
 dotH_name = "PileUp_SF.h"
@@ -106,7 +106,7 @@ x_type = "Int_t"
 x_name = "nTrueInt"
 
 
-# In[17]:
+# In[ ]:
 
 
 dotH = str()
@@ -120,7 +120,7 @@ dotH += "#endif"
 print(dotH)
 
 
-# In[38]:
+# In[ ]:
 
 
 dotC = str()
@@ -141,7 +141,7 @@ dotC += "\n\treturn\t1000000;\n"
 dotC+="}"
 
 
-# In[39]:
+# In[ ]:
 
 
 def write_code(name,s):
