@@ -15,7 +15,8 @@ public:
 		electron  = 6,
 		jet       = 7,
 		met       = 8,
-		other_cut = 9
+		other_cut = 9,
+		SF        = 10
 	};
 	const vector<string> cut_name_string = {
 		"non",
@@ -27,9 +28,10 @@ public:
 		"electron",
 		"jet",
 		"met",
-		"other_cut"
+		"other_cut",
+		"SF"
 	};
-	vector<Long64_t> n_selected;
+	vector<Double_t> n_selected;
 	vector<Double_t> efficiency;
 
 	// constructor
@@ -44,6 +46,7 @@ public:
     // methods
 	void calculate_efficiency();
 	void fill(cut_name name_in_enum);
+	void fill(cut_name name_in_enum, Double_t scale);
 	void write(const string& file_name_for_write);
 	void calculate_write(const string& file_name);
 

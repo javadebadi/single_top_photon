@@ -13,6 +13,9 @@
 		
 		n_selected.at(int(name_in_enum))++;
 	}
+	void CutFlowTable::fill(cut_name name_in_enum, Double_t scale){
+		n_selected.at(int(name_in_enum)) += scale;
+	}
 
 	void CutFlowTable::write(const string& file_name_for_write){
         	ofstream ost{file_name_for_write};

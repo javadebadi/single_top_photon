@@ -1,7 +1,23 @@
 #include "MyJet.h"
+void MyJet::find_jetFlavorstring(){
+	if( jetFlavor == 0) jetFlavorstring = "non";
+	else if( jetFlavor == 1) jetFlavorstring = "d";
+	else if( jetFlavor == 2) jetFlavorstring = "u";
+	else if( jetFlavor == 3) jetFlavorstring = "s";
+	else if( jetFlavor == 4) jetFlavorstring = "c";
+	else if( jetFlavor == 5) jetFlavorstring = "b";
+	else{
+		cout<<"Error: Unexpected jatFlavor: look at MyJet::find_jetFlavorstring()"<<endl;
+		cout<<"jetFlavor (nTrueInt) was : "<<jetFlavor<<endl;
+		exit(1);
+	}
+}
 
 void MyJet::build(){
-
+	find_jetFlavorstring();	
+	SF    = bJet_SF   (Eta(), Pt(), get_jetFlavorstring() , get_OP());
+	SFLow = bJet_SFLow(Eta(), Pt(), get_jetFlavorstring() , get_OP());
+	SFUp  = bJet_SFUp (Eta(), Pt(), get_jetFlavorstring() , get_OP());
 }
 
 Int_t MyJet::is_loose(){
@@ -55,6 +71,9 @@ void MyJet::print(){
 	cout<<"is_loose()                                 "<<is_loose()<<endl;
 	cout<<"is_passed()                                "<<is_passed()<<endl;
 	cout<<"is_b_tagged()                              "<<is_b_tagged()<<endl;
+	cout<<"JetFlavor                                  "<<jetFlavor<<endl;
+	cout<<"Operating Point (OP)                       "<<OP<<endl;
+	cout<<"SF, SFLow, SFUp                            "<<SF<<","<<SFLow<<","<<SFUp<<endl;
 	cout<<"-------------------------------------------"<<endl;
 }
 

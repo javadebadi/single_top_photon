@@ -77,7 +77,9 @@ public:
                 PFNeuIso_corrected = TMath::Max( PFNeuIso-rho*EANeu, 0.0);
         }
         Double_t get_PFNeuIso_corrected(){return PFNeuIso_corrected;}
-
+	Double_t get_SF(){return SF;}
+	Double_t get_SFLow(){return SFLow;}
+	Double_t get_SFUp(){return SFUp;}
 
 	void build();
 	Int_t is_tight();
