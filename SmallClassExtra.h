@@ -29,8 +29,8 @@ public:
 	VectorDouble_t     Navigator;
 	VectorDouble_t     tempVectorDouble_t;
 	Double_t           PileUp_SF;
-	Double_t           PileUP_SFLow;
-	Double_t           PileUP_SFUp;
+	Double_t           PileUp_SFLow;
+	Double_t           PileUp_SFUp;
 	
 	// Turn on only branches which are needed
 	void turn_on_necessary_branches();
@@ -49,6 +49,7 @@ public:
 	void build_met();
 	void build_all();
 	void build_selected_jets();
+	Double_t scale();
 
 	// cuts
 	Int_t genweight_cut();

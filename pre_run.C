@@ -20,6 +20,7 @@
 #include "./PileUp_SF/PileUp_SF.C"
 #include "./PileUp_SF/PileUp_SFLow.C"
 #include "./PileUp_SF/PileUp_SFUp.C"
+#include "./BJet_SF/BJet_SF.C"
 
 #include <string>
 void print(int n, int N, int d=10000){

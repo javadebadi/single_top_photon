@@ -202,6 +202,8 @@ void SmallClassExtra::build_jets(){
 		j.set_CHM( Jet_chargedMultiplicity                        ->at(i));
 		j.set_NumNeutralParticles(Jet_neutralMultiplicity         ->at(i));
 		j.set_bDiscriminator_pfCISVV2(Jet_bDiscriminator_pfCISVV2 ->at(i));
+		j.set_jetFlavor(Jet_mcMatchFlav                           ->at(i));
+		j.set_OP("medium");
 		j.build();
 		MyJets.push_back(j);
 	}
@@ -292,6 +294,9 @@ void SmallClassExtra::build_selected_jets(){
 		else if (j.is_passed() > 0 && j.is_b_tagged() > 0){
 			MySelectedBJets.push_back(j);
 		}
+	}
+	if(MySelectedBJets.size() > 1){
+		MySelectedBJets.at(0).print_all(MySelectedBJets);	
 	}
 }
 //cuts
@@ -437,4 +442,14 @@ void SmallClassExtra::find_DeltaR_MyJets_MySelectedPhotons(){
 void SmallClassExtra::plot_all(){
 	DeltaR_jet_photon_before_cleaning_accumulated.write_to_root("DeltaR_jet_photon_before_cleaning");
 	DeltaR_jet_photon_after_cleaning_accumulated.write_to_root("DeltaR_jet_photon_after_cleaning");
+}
+
+//scale (SF impact on efficiency)
+Double_t SmallClassExtra::scale(){
+	//return PileUp_SFUp;
+	//return MySelectedPhotons.at(0).get_SF();
+	return MySelectedBJets.at(0).get_SFUp();
+	//return MySelectedBJets.at(0).get_SFLow()*MySelectedPhotons.at(0).get_SFLow()*PileUp_SFLow;
+	//return MySelectedBJets.at(0).get_SF()*MySelectedPhotons.at(0).get_SF()*PileUp_SF;
+	//return MySelectedBJets.at(0).get_SF()*MySelectedPhotons.at(0).get_SF()*PileUp_SF;
 }

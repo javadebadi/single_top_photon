@@ -43,6 +43,8 @@ void run(){
 			cut_flow_table.fill(CutFlowTable::cut_name::other_cut);}
 		else continue;
 		working.build_pileUp_SF();
+		Double_t scale = working.scale();
+		cut_flow_table.fill(CutFlowTable::cut_name::SF, scale);
 		
 	}
 	
