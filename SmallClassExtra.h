@@ -31,6 +31,7 @@ public:
 	Double_t           PileUp_SF;
 	Double_t           PileUp_SFLow;
 	Double_t           PileUp_SFUp;
+	Double_t           cleaning_radius = 0.15;
 	
 	// Turn on only branches which are needed
 	void turn_on_necessary_branches();
@@ -42,6 +43,7 @@ public:
 	void build_electrons();
 	void build_jets();
 	void build_pileUp_SF();
+	void cleaning_error_message(const TString & s);
 	void jet_photon_cleaning();
 	void jet_electron_cleaning();
 	void jet_muon_cleaning();

@@ -211,16 +211,24 @@ void SmallClassExtra::build_jets(){
 		MyJets.at(0).print_all(MyJets);	
 	}*/
 }
+// cleaning error message
+//void cleaning_error_message(const TString){}
+void SmallClassExtra::cleaning_error_message(const TString & s){
+	cout<<"An event with no Jets after "<<s<<endl;
+}
 //jet photon cleaning
 void SmallClassExtra::jet_photon_cleaning(){
 	vector<int> index;
 	for(auto m: MyPhotons){
 		for(int i=0; i<MyJets.size(); i++){
-			if( MyJets.at(i).DeltaR(m) < 0.15 ) index.push_back(i);
+			if( MyJets.at(i).DeltaR(m) < cleaning_radius ) index.push_back(i);
 		}
 	}
 	for(int t1 = index.size()-1; t1 >= 0; --t1){
-    		MyJets.erase(MyJets.begin()+index.at(t1));
+		if(MyJets.size() == 0 && t1 == 0){
+			cleaning_error_message("jet_photon_cleaning");
+		}
+    		else MyJets.erase(MyJets.begin()+index.at(t1));
 	}
 }
 // jet electron cleaning
@@ -229,11 +237,14 @@ void SmallClassExtra::jet_electron_cleaning(){
 	vector<int> index;
 	for(auto m: MyElectrons){
 		for(int i=0; i<MyJets.size(); i++){
-			if( MyJets.at(i).DeltaR(m) < 0.15 ) index.push_back(i);
+			if( MyJets.at(i).DeltaR(m) < cleaning_radius) index.push_back(i);
 		}
 	}
 	for(int t1 = index.size()-1; t1 >= 0; --t1){
-    		MyJets.erase(MyJets.begin()+index.at(t1));
+		if(MyJets.size() == 0 && t1 == 0){
+			cleaning_error_message("jet_electron_cleaning");
+		}
+    		else MyJets.erase(MyJets.begin()+index.at(t1));
 	}
 }
 // jet muon cleaning
@@ -246,11 +257,14 @@ void SmallClassExtra::jet_muon_cleaning(){
 	}*/
 	for(auto m: MyMuons){
 		for(int i=0; i<MyJets.size(); i++){
-			if( MyJets.at(i).DeltaR(m) < 0.15 ) index.push_back(i);
+			if( MyJets.at(i).DeltaR(m) < cleaning_radius ) index.push_back(i);
 		}
 	}
 	for(int t1 = index.size()-1; t1 >= 0; --t1){
-    		MyJets.erase(MyJets.begin()+index.at(t1));
+		if(MyJets.size() == 0 && t1 == 0){
+			cleaning_error_message("jet_muon_cleaning");
+		}
+    		else MyJets.erase(MyJets.begin()+index.at(t1));
 	}
 	for(int i=0; i<MyJets.size(); i++){
 		//Navigator.push_back(MyJets.at(i).DeltaR(MySelectedMuons.at(0)) );
@@ -295,9 +309,9 @@ void SmallClassExtra::build_selected_jets(){
 			MySelectedBJets.push_back(j);
 		}
 	}
-	if(MySelectedBJets.size() > 1){
+	/*if(MySelectedBJets.size() > 1){
 		MySelectedBJets.at(0).print_all(MySelectedBJets);	
-	}
+	}*/
 }
 //cuts
 Int_t SmallClassExtra::genweight_cut(){
@@ -446,10 +460,10 @@ void SmallClassExtra::plot_all(){
 
 //scale (SF impact on efficiency)
 Double_t SmallClassExtra::scale(){
-	//return PileUp_SFUp;
-	//return MySelectedPhotons.at(0).get_SF();
-	return MySelectedBJets.at(0).get_SFUp();
+	//return PileUp_SF;
+	//return MySelectedPhotons.at(0).get_SFUp();
+	//return MySelectedBJets.at(0).get_SFUp();
 	//return MySelectedBJets.at(0).get_SFLow()*MySelectedPhotons.at(0).get_SFLow()*PileUp_SFLow;
-	//return MySelectedBJets.at(0).get_SF()*MySelectedPhotons.at(0).get_SF()*PileUp_SF;
+	return MySelectedBJets.at(0).get_SF()*MySelectedPhotons.at(0).get_SF()*PileUp_SF;
 	//return MySelectedBJets.at(0).get_SF()*MySelectedPhotons.at(0).get_SF()*PileUp_SF;
 }
