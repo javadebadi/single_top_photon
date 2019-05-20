@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+# In[1]:
 
 
 import numpy as np
@@ -9,13 +9,13 @@ import pandas as pd
 from BJet_SF_config import *
 
 
-# In[ ]:
+# In[2]:
 
 
 df = pd.read_csv(BJet_SF_path)
 
 
-# In[ ]:
+# In[3]:
 
 
 print("=========== Read BJet SF ============")
@@ -32,7 +32,7 @@ del new_cols
 print("============ Iterating over DataFrame ============")
 
 
-# In[ ]:
+# In[11]:
 
 
 dotH_name = "BJet_SF.h"
@@ -50,13 +50,13 @@ type_x = "Double_t"
 name_x = "eta"
 type_y = "Double_t"
 name_y = "pt"
-type_z = "Int_t"
-name_z = "jetFalvor"
+type_z = "TString"
+name_z = "jetFlavorstring"
 type_w = "TString"
 name_w = "OperatingPoint"
 
 
-# In[ ]:
+# In[12]:
 
 
 dotH = str()
@@ -72,13 +72,13 @@ dotH += "#endif"
 print(dotH)
 
 
-# In[ ]:
+# In[6]:
 
 
 ptMax_max = df[df["measurementType"].apply(str.strip)=="incl"]["ptMax"].max()
 
 
-# In[ ]:
+# In[17]:
 
 
 def dotC_for_sysType(func_sysType):
@@ -97,6 +97,17 @@ def dotC_for_sysType(func_sysType):
     \t}
 
     \n"""
+    # jet flavor set code
+    dotC += "Int_t jetFlavor = 0;\n"
+    dotC += """\tif(jetFlavorstring == "u" || jetFlavorstring == "s" || jetFlavorstring == "d") jetFlavor=2;\n"""
+    dotC += """\telse if(jetFlavorstring == "b" || jetFlavorstring == "c") jetFlavor=1;\n"""
+    dotC += """\telse if(jetFlavorstring == "non") jetFlavor=0;\n"""
+    dotC += """\telse {
+    \t\tcout<<"Error: the jetFlavor is not correct. It should be one of (u,c,s,d,b,non). The error is raised from one of BJet_SF functions"<<endl;
+    \t\texit(1);
+    \t}
+
+    \n"""
 
     for index, row in df.iterrows():
         if row["sysType"].strip() != func_sysType or not(row["measurementType"].strip() in func_measurementTypes):
@@ -109,7 +120,7 @@ def dotC_for_sysType(func_sysType):
             up_y = str(10000)
 
         dotC += "\tif("+name_y+" > "+low_y+" && " + name_y+" <= "+up_y
-        dotC += " && "+ name_z + " == "+str(row["jetFlavor"])
+        dotC += " && "+ "jetFlavor" + " == "+str(row["jetFlavor"])
         dotC += " && "+ "op" + " == "+str(row["OperatingPoint"])
         dotC += "){\n"
         dotC += "\t\treturn\t"+row["formula"].strip()+";\n"
@@ -119,7 +130,7 @@ def dotC_for_sysType(func_sysType):
     return dotC
 
 
-# In[ ]:
+# In[18]:
 
 
 dotC = str()
