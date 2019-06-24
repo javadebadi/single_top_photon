@@ -89,6 +89,16 @@ void SmallClassExtra::turn_on_necessary_branches(){
 	// met branches
 	fChain->SetBranchStatus("Met_type1PF_pt",1);
 	fChain->SetBranchStatus("Met_type1PF_phi",1);
+
+	// Genertor level
+	fChain->SetBranchStatus("Gen_pt",1);
+	fChain->SetBranchStatus("Gen_eta",1);
+	fChain->SetBranchStatus("Gen_phi",1);
+	fChain->SetBranchStatus("Gen_mass",1);
+	fChain->SetBranchStatus("Gen_pdg_id",1);
+	fChain->SetBranchStatus("Gen_status",1);
+	fChain->SetBranchStatus("Gen_motherpdg_id",1);
+	fChain->SetBranchStatus("Gen_grandmotherId",1);
 }
 
 //build objects
@@ -284,6 +294,52 @@ void SmallClassExtra::build_met(){
 	MyMETs.push_back(m);
 	//m.print();
 }
+//build GenParticles
+void SmallClassExtra::build_gens(){
+	MyGenParticles.clear();
+	for(int i=0; i< Gen_pt->size() ; i++){
+		MyGenParticle e;
+		e.SetPtEtaPhiM( Gen_pt->at(i),
+				Gen_eta->at(i),
+				Gen_phi->at(i),
+				Gen_mass->at(i)
+				);
+		//e.build();
+		e.set_ID( Gen_pdg_id                    -> at(i) );
+		e.set_Mother_ID( Gen_motherpdg_id       -> at(i) );
+		e.set_Status( Gen_status                -> at(i) );
+		e.set_GrandMother_ID( Gen_grandmotherId -> at(i) );
+		MyGenParticles.push_back(e);
+	}
+	/*if(MyGenParticles.size() > 1){
+		MyGenParticles.at(0).print_all(MyGenParticles);	
+	}*/
+}
+// match GenParticle with photon
+void SmallClassExtra::match_gens_MySelectedPhotons(){
+	MyMatchedGenParticlePhotons.clear();
+	// find all matches with selectd photon
+	for(auto g: MyGenParticles){
+		if ( g.get_Status() != 1 ) continue;
+		else if ( g.is_matched(MySelectedPhotons.at(0)) == false) continue;
+		else MyMatchedGenParticlePhotons.push_back(g);
+	}
+	// select the one with maximum match
+	if( MyMatchedGenParticlePhotons.size() > 1 ){
+			//sort according to decreasing chi value 
+		for(int i=0; i< MyMatchedGenParticlePhotons.size(); i++){
+			for(int j=0; j<i; j++){
+				if(MyMatchedGenParticlePhotons.at(i).chi(MySelectedPhotons.at(0)) < MyMatchedGenParticlePhotons.at(j).chi(MySelectedPhotons.at(0)) ){
+					swap( MyMatchedGenParticlePhotons.at(i), MyMatchedGenParticlePhotons.at(j) ); 
+					//cout<<MyMatchedGenParticlePhotons.at(0).chi(MySelectedPhotons.at(0))<<endl;
+					//cout<<MyMatchedGenParticlePhotons.at(1).chi(MySelectedPhotons.at(0))<<endl;
+				}
+			}
+		}
+	}
+	//cout<<"========"<<endl;
+}
+
 //build pileUp
 void SmallClassExtra::build_pileUp_SF(){
 	PileUp_SF    = pileUp_SF(nTrueInt);

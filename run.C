@@ -45,6 +45,10 @@ void run(){
 		working.build_pileUp_SF();
 		Double_t scale = working.scale();
 		cut_flow_table.fill(CutFlowTable::cut_name::SF, scale);
+
+		//gens (temporary)
+		working.build_gens();
+		working.match_gens_MySelectedPhotons();
 		
 	}
 	

@@ -13,6 +13,7 @@
 #include "MyElectron.C"
 #include "MyJet.C"
 #include "MyMET.C"
+#include "MyGenParticle.C"
 #include "./ID/ID.C"
 #include "./Photon_SF/Photon_SF.C"
 #include "./Photon_SF/Photon_SFLow.C"

@@ -9,6 +9,7 @@
 #include "MyElectron.h"
 #include "MyJet.h"
 #include "MyMET.h"
+#include "MyGenParticle.h"
 #include "./MyUtils/VectorDouble_t.h"
 #include "./MyUtils/VectorVectorDouble_t.h"
 #include "./PileUp_SF/PileUp_SF.h"
@@ -26,6 +27,8 @@ public:
 	vector<MyMuon>     MySelectedMuons;
 	vector<MyJet>      MySelectedJets;
 	vector<MyJet>      MySelectedBJets;
+	vector<MyGenParticle> MyGenParticles;
+	vector<MyGenParticle> MyMatchedGenParticlePhotons;
 	VectorDouble_t     Navigator;
 	VectorDouble_t     tempVectorDouble_t;
 	Double_t           PileUp_SF;
@@ -49,6 +52,8 @@ public:
 	void jet_muon_cleaning();
 	void jet_lepton_cleaning();
 	void build_met();
+	void build_gens();
+	void match_gens_MySelectedPhotons();
 	void build_all();
 	void build_selected_jets();
 	Double_t scale();
