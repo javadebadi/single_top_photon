@@ -8,8 +8,8 @@ public:
 	enum class cut_name{
 		non       = 0,
 		genweight = 1,
-		vertex    = 2,
-		trigger   = 3,
+		trigger   = 2,
+		vertex    = 3,
 		photon    = 4,
 		muon      = 5,
 		electron  = 6,
@@ -21,8 +21,8 @@ public:
 	const vector<string> cut_name_string = {
 		"non",
 		"genweight",
-		"vertex",
 		"trigger",
+		"vertex",
 		"photon",
 		"muon",
 		"electron",

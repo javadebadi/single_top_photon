@@ -17,11 +17,11 @@ void run(){
 		if( working.genweight_cut() >            0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::genweight);}
 		else continue;
-		if(working.vertex_cut()                > 0 ){
-			cut_flow_table.fill(CutFlowTable::cut_name::vertex);}
-		else continue;
 		if( working.trigger_cut()              > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::trigger);}
+		else continue;
+		if(working.vertex_cut()                > 0 ){
+			cut_flow_table.fill(CutFlowTable::cut_name::vertex);}
 		else continue;
 		if( working.build_cut_photons()        > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::photon);}
