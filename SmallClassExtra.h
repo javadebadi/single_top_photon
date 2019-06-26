@@ -31,11 +31,12 @@ public:
 	vector<MyGenParticle> MyMatchedGenParticlePhotons;
 	VectorDouble_t     Navigator;
 	VectorDouble_t     tempVectorDouble_t;
+	VectorDouble_t     HistID;
+	VectorDouble_t     HistMotherID;
 	Double_t           PileUp_SF;
 	Double_t           PileUp_SFLow;
 	Double_t           PileUp_SFUp;
 	Double_t           cleaning_radius = 0.15;
-	
 	// Turn on only branches which are needed
 	void turn_on_necessary_branches();
 
@@ -53,7 +54,7 @@ public:
 	void jet_lepton_cleaning();
 	void build_met();
 	void build_gens();
-	void match_gens_MySelectedPhotons();
+	void match_gens_MySelectedPhotons(int i);
 	void build_all();
 	void build_selected_jets();
 	Double_t scale();
@@ -77,13 +78,14 @@ public:
 	Int_t build_cut_electrons();
 	Int_t build_cut_jets();
 	Int_t build_cut_met();
-
+	Int_t cut_matches_photon();
 	//plots
 	VectorVectorDouble_t DeltaR_jet_photon_before_cleaning_accumulated;
 	VectorVectorDouble_t DeltaR_jet_photon_after_cleaning_accumulated;
 	void find_DeltaR_MyJets_MySelectedPhotons();  // it is important where you use 
 					// this method, look at jet_build_cut
 					// method to find out why
+	void build_plots();
 	void plot_all();
 };
 

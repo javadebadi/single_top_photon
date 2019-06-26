@@ -101,6 +101,44 @@ void VectorDouble_t::write_to_root(){
 
 }
 
+void VectorDouble_t::write_to_root(const TString& root_name){
+
+	// define TFile
+	TFile * new_file = new TFile(root_name,"recreate");
+	// define TTree
+	TTree * tree = new TTree(tree_name,"Analysis");
+	// define TBranch
+	Double_t var;
+	TBranch* branch = tree->Branch(branch_name, &var, "var/"+var_notation);
+	for(Long64_t i =0; i<size(); i++){
+		var = at(i);
+		tree->Fill();
+	}
+
+	tree->Write("",TObject::kOverwrite);
+	new_file->Close();
+
+}
+
+
+void VectorDouble_t::write_to_root(const TString& root_name, const TString& tree_name){
+
+	// define TFile
+	TFile * new_file = new TFile(root_name,"recreate");
+	// define TTree
+	TTree * tree = new TTree(tree_name,"Analysis");
+	// define TBranch
+	Double_t var;
+	TBranch* branch = tree->Branch(branch_name, &var, "var/"+var_notation);
+	for(Long64_t i =0; i<size(); i++){
+		var = at(i);
+		tree->Fill();
+	}
+
+	tree->Write("",TObject::kOverwrite);
+	new_file->Close();
+
+}
 void VectorDouble_t::read_from_root(){
 
 	// define a chain
@@ -126,7 +164,56 @@ void VectorDouble_t::read_from_root(){
 	
 }
 
+void VectorDouble_t::read_from_root(const TString & root_file_name){
 
+	// define a chain
+	TChain * tree = new TChain(tree_name, "");
+	tree->Add(root_file_name + "/" + tree_name);
+
+	// define branch
+	Double_t var;
+	tree->SetBranchAddress(branch_name, &var);
+
+	// print number of entries in root file
+	Long64_t n_entries = tree->GetEntries();
+	TString info = "n entries of ";
+	info = info + root_file_name+"/"+tree_name+"/"+branch_name;
+ 	info = info + " = ";
+	cout<<info<<n_entries<<endl;
+
+	// fill vector with entries of the branch
+	for(Long64_t i=0; i<n_entries; i++){
+		tree->GetEntry(i);
+		push_back(var);
+	}
+	
+}
+
+
+void VectorDouble_t::read_from_root(const TString & root_file_name, const TString& tree_name){
+
+	// define a chain
+	TChain * tree = new TChain(tree_name, "");
+	tree->Add(root_file_name + "/" + tree_name);
+
+	// define branch
+	Double_t var;
+	tree->SetBranchAddress(branch_name, &var);
+
+	// print number of entries in root file
+	Long64_t n_entries = tree->GetEntries();
+	TString info = "n entries of ";
+	info = info + root_file_name+"/"+tree_name+"/"+branch_name;
+ 	info = info + " = ";
+	cout<<info<<n_entries<<endl;
+
+	// fill vector with entries of the branch
+	for(Long64_t i=0; i<n_entries; i++){
+		tree->GetEntry(i);
+		push_back(var);
+	}
+	
+}
 void VectorDouble_t::read_from_csv(){
 	FILE * fp = fopen(csv_file_name,"r");
 	char line[1001];

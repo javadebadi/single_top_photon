@@ -26,6 +26,13 @@ public:
 	void print_all(vector<MyGenParticle>&);
 	bool is_matched(TLorentzVector&);
 	Double_t chi(TLorentzVector&);
+
+	bool is_mother_quark();
+	bool is_mother_charged_lepton();
+	bool is_mother_neutral_lepton();
+	bool is_mother_gauge_boson();
+	bool is_mother_Higgs();
+	bool is_prompt();
 };
 
 #endif

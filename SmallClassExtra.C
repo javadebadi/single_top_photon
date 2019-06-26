@@ -316,7 +316,7 @@ void SmallClassExtra::build_gens(){
 	}*/
 }
 // match GenParticle with photon
-void SmallClassExtra::match_gens_MySelectedPhotons(){
+void SmallClassExtra::match_gens_MySelectedPhotons(int event){
 	MyMatchedGenParticlePhotons.clear();
 	// find all matches with selectd photon
 	for(auto g: MyGenParticles){
@@ -331,13 +331,24 @@ void SmallClassExtra::match_gens_MySelectedPhotons(){
 			for(int j=0; j<i; j++){
 				if(MyMatchedGenParticlePhotons.at(i).chi(MySelectedPhotons.at(0)) < MyMatchedGenParticlePhotons.at(j).chi(MySelectedPhotons.at(0)) ){
 					swap( MyMatchedGenParticlePhotons.at(i), MyMatchedGenParticlePhotons.at(j) ); 
-					//cout<<MyMatchedGenParticlePhotons.at(0).chi(MySelectedPhotons.at(0))<<endl;
-					//cout<<MyMatchedGenParticlePhotons.at(1).chi(MySelectedPhotons.at(0))<<endl;
 				}
 			}
 		}
 	}
-	//cout<<"========"<<endl;
+
+	if (MyMatchedGenParticlePhotons.size() == 0 ){
+		cout<<"An Event with no MC match for Photon. Event #:    "<<event<<endl;
+		//cout<<"This event will be removed from analysis"<<endl;
+		//cout<<"........................................"<<endl;
+	}
+	else if (MyMatchedGenParticlePhotons.at(0).is_prompt() == true){
+		//MyMatchedGenParticlePhotons.at(0).print();
+	}
+
+}
+Int_t SmallClassExtra::cut_matches_photon(){
+	if ( MyMatchedGenParticlePhotons.size() == 0 ) return -1;
+	else return 1;
 }
 
 //build pileUp
@@ -509,9 +520,16 @@ void SmallClassExtra::find_DeltaR_MyJets_MySelectedPhotons(){
 	
 }
 //plot
+void SmallClassExtra::build_plots(){
+	//plots for GenParticle
+	HistID.push_back(MyMatchedGenParticlePhotons.at(0).get_ID());
+	HistMotherID.push_back(MyMatchedGenParticlePhotons.at(0).get_Mother_ID());
+}
 void SmallClassExtra::plot_all(){
 	DeltaR_jet_photon_before_cleaning_accumulated.write_to_root("DeltaR_jet_photon_before_cleaning");
 	DeltaR_jet_photon_after_cleaning_accumulated.write_to_root("DeltaR_jet_photon_after_cleaning");
+	HistID.write_to_root("ParticleID.root","tree");
+	HistMotherID.write_to_root("MotheID.root","tree");
 }
 
 //scale (SF impact on efficiency)

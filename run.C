@@ -8,11 +8,13 @@ void run(){
 	SmallClassExtra working;
 	Long64_t n_entries = working.fChain->GetEntries();
 	working.turn_on_necessary_branches();
-	n_entries = 100000;
+	//n_entries = 100000;
+	//n_entries = 1;
 	CutFlowTable cut_flow_table(n_entries);
 	for(Long64_t event =0; event < n_entries; event++){
 		print(event+1,n_entries,10000);
 		working.GetEntry(event);
+		//working.GetEntry(2530366);
 		cut_flow_table.fill(CutFlowTable::cut_name::non);
 		if( working.genweight_cut() >            0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::genweight);}
@@ -23,7 +25,10 @@ void run(){
 		if(working.vertex_cut()                > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::vertex);}
 		else continue;
-		if( working.build_cut_photons()        > 0 ){
+		if( working.build_cut_photons() > 0){
+			working.build_gens();		//build gen particles
+			working.match_gens_MySelectedPhotons(event);// find matched gen particle for photon
+			//if( working.cut_matches_photon() < 0) continue;
 			cut_flow_table.fill(CutFlowTable::cut_name::photon);}
 		else continue;
 		if( working.build_cut_muons()          > 0 ){
@@ -42,13 +47,13 @@ void run(){
 		if( working.other_cut()               > 0 ){
 			cut_flow_table.fill(CutFlowTable::cut_name::other_cut);}
 		else continue;
+
 		working.build_pileUp_SF();
 		Double_t scale = working.scale();
 		cut_flow_table.fill(CutFlowTable::cut_name::SF, scale);
 
-		//gens (temporary)
-		working.build_gens();
-		working.match_gens_MySelectedPhotons();
+
+		working.build_plots();
 		
 	}
 	

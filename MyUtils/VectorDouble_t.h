@@ -44,7 +44,11 @@ public:
 	void add(const VectorDouble_t &);
 	void write_to_csv();
 	void write_to_root();
+	void write_to_root(const TString&);
+	void write_to_root(const TString&, const TString&);
 	void read_from_root();
+	void read_from_root(const TString&);
+	void read_from_root(const TString&, const TString&);
 	void read_from_csv();
 	TH1D* fill_histogram(const Int_t& n_bins);
 };
