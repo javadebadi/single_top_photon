@@ -82,6 +82,20 @@ void VectorDouble_t::write_to_csv(){
 
 }
 
+void VectorDouble_t::write_to_csv(const TString& csv_file_name){
+
+                ofstream csv_file;
+                csv_file.open(csv_file_name);
+                if ( header == true){
+                        csv_file<<header_name<<delimator<<"\n";
+                }
+                for(Long64_t i=0; i<size(); i++){
+                        csv_file<<at(i)<<delimator<<"\n";
+                }
+
+                csv_file.close();
+
+}
 void VectorDouble_t::write_to_root(){
 
 	// define TFile
@@ -236,6 +250,27 @@ void VectorDouble_t::read_from_csv(){
 
 }
 
+void VectorDouble_t::read_from_csv(const TString& csv_file_name){
+	FILE * fp = fopen(csv_file_name,"r");
+	char line[1001];
+	Int_t nlines = 0;
+	double var = 0;
+
+	if( header == true){
+		char  h;
+		fgets(line,1000,fp);
+		TString format = "%s" + delimator;
+		sscanf(line,format,&h);
+	}
+	while(fgets(line,1000,fp)){
+		TString format= "%lg" + delimator;
+		sscanf(line,format,&var);
+		push_back(var);	
+	}
+
+	fclose (fp);
+
+}
 TH1D* VectorDouble_t::fill_histogram(const Int_t& n_bins = 50){
 
 	TH1D * h = new TH1D(	branch_name,
