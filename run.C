@@ -8,12 +8,15 @@ void run(){
 	SmallClassExtra working;
 	Long64_t n_entries = working.fChain->GetEntries();
 	working.turn_on_necessary_branches();
+	VectorDouble_t indices;
+	indices.set_header(false);
+	indices.read_from_csv("indices.csv");
 	//n_entries = 100000;
-	//n_entries = 1;
 	CutFlowTable cut_flow_table(n_entries);
-	for(Long64_t event =0; event < n_entries; event++){
+	for(auto event: indices){
+	//	cout<<event<<endl;
 		print(event+1,n_entries,10000);
-		working.GetEntry(event);
+		working.GetEntry(int(event));
 		//working.GetEntry(2530366);
 		cut_flow_table.fill(CutFlowTable::cut_name::non);
 		if( working.genweight_cut() >            0 ){
