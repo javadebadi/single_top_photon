@@ -12,21 +12,21 @@ The code for analysis of single top + photon using LHC data @13 TeV.
 ***
 ### Structure of the Code
 
-This code is very technical. It is written for a very narrow and specific data analysis problem in particle physics. I will try to explain the code, but it is hard for someone with no background on particle physics data analysis to understand. Thus, don't be afraid if you are not a physicst and see some strage words. I am sorry for that, if you had any questions pleas contact me via `javad.ebadi.1990@gmail.com` or via skyp `javad.ebadi.abd`.
+This code is very technical. It is written for a very narrow and specific data analysis problem in particle physics. I will try to explain the code, but it is hard for someone with no background on particle physics data analysis to understand. Thus, don't be afraid if you are not a physicist and see some strange words. I am sorry for that if you had any questions please contact me via `javad.ebadi.1990@gmail.com` or via skype `javad.ebadi.abd`.
 
 The main code is a **C++** code which is designed and implemented for physics analysis. I have used **Python** and **Bash** to make some parts of the programming faster and maintainable. 
 
-In the physics analysis we have serveral objects:
+In the physics analysis we have several objects:
 - photons (MyPhoton)
-- electorons (MyElectron)
+- electrons (MyElectron)
 - muons (MyMuon)
 - jets (MyJet)
 - genParticles (MyGenParticle)
 - mets (MyMET)
 
-I have written a **C++** **class** for each of these **objects**. The name of the classes and files are shown above in the paranthesis. The classes are **inherited** from root-cern **TLorentzVector** class and extended to have attributes which are in need for physics analysis. 
+I have written a **C++** **class** for each of these **objects**. The name of the classes and files are shown above in the parenthesis. The classes are **inherited** from root-cern **TLorentzVector** class and extended to have attributes which are in need for physics analysis. 
 
-In any physics analysis we need to present a cut-flow table which shows how much of the events could survive from the cuts. This is important for hypothesis test in physics. We need to go in some part of phase space where the number of signal events is comparable to background events. In that region we can claim discovery or present our exclusion bounds. I have generated some utilites and classes for this purpose. I have used **C++** library to read and write files in an appropriate format.
+In any physics analysis, we need to present a cut-flow table which shows how much of the events could survive from the cuts. This is important for hypothesis test in physics. We need to go in some part of phase space where the number of signal events is comparable to background events. In that region, we can claim discovery or present our exclusion bounds. I have generated some utilities and classes for this purpose. I have used **C++** library to read and write files in an appropriate format.
 
 
 For some objects we need some **corrections** based on the parts of detector which are not working as designed. There are **csv** files to which include corrections to these situations. I have written a **python** code to write these csv files and automatically generate a **C++** code to realize these corrections in my main **C++** code.
