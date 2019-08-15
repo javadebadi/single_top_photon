@@ -29,4 +29,6 @@ In any physics analysis we need to present a cut-flow table which shows how much
 
 For some objects we need some **corrections** based on the parts of detector which are not working as designed. There are **csv** files to which include corrections to these situations. I have written a **python** code to write these csv files and automatically generate a **C++** code to realize these corrections in my main **C++** code.
 
-In additon, I have maded some **bash** scripts to make processes of running and invoking programs and classes automatics.
+In additon, I have made some **bash** scripts to make processes of running and invoking programs and classes automatics.
+
+For analysis itself, we need to read data from `.root` files. The `SmallClass.h` represents a file which has a class to read the data. In the `SmallClassExtra.h` file, I have written a new class called `SmallClassExtra` which is **inherited** form `SmallClass`. This class has methods to read branches of trees for data file, fill physics objects in each event, apply cuts and store necessary information in the memory and final results in pdf and csv files. 
