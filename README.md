@@ -12,6 +12,8 @@ The code for analysis of single top + photon using LHC data @13 TeV.
 ***
 ### Structure of the Code
 
+This code is very technical. It is written for a very narrow and specific data analysis problem in particle physics. I will try to explain the code, but it is hard for someone with no background on particle physics data analysis to understand. Thus, don't be afraid if you are not a physicst and see some strage words. I am sorry for that, if you had any questions pleas contact me via `javad.ebadi.1990@gmail.com` or via skyp `javad.ebadi.abd`.
+
 The main code is a **C++** code which is designed and implemented for physics analysis. I have used **Python** and **Bash** to make some parts of the programming faster and maintainable. 
 
 In the physics analysis we have serveral objects:
