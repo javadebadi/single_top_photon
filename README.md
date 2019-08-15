@@ -12,7 +12,7 @@ Feynman Diagrams for single top + photon prcoesses:
 
 ### Structure of the Code
 
-The main code is a C++ code which is designed and implemented for physics analysis. 
+The main code is a **C++** code which is designed and implemented for physics analysis. I have used **Python** and **Bash** to make some parts of the programming faster and maintainable. 
 
 In the physics analysis we have serveral objects:
 - photons (MyPhoton)
@@ -22,6 +22,11 @@ In the physics analysis we have serveral objects:
 - genParticles (MyGenParticle)
 - mets (MyMET)
 
-I have write a C++ class for each of these objects. The name of the classes and files are shown above in the paranthesis. 
+I have write a **C++** class for each of these objects. The name of the classes and files are shown above in the paranthesis. 
 
-In any physics analysis we need to present a cut-flow table which shows how much of the events could survive from the cuts. This is important for hypothesis test in physics. We need to go in some part of phase space where the number of signal events is comparable to background events. In that region we can claim discovery or present our exclusion bounds.
+In any physics analysis we need to present a cut-flow table which shows how much of the events could survive from the cuts. This is important for hypothesis test in physics. We need to go in some part of phase space where the number of signal events is comparable to background events. In that region we can claim discovery or present our exclusion bounds. I have generated some utilites and classes for this purpose. I have used **C++** library to read and write files in an appropriate format.
+
+
+For some objects we need some **corrections** based on the parts of detector which are not working as designed. There are **csv** files to which include corrections to these situations. I have written a **python** code to write these csv files and automatically generate a **C++** code to realize these corrections in my main **C++** code.
+
+In additon, I have maded some **bash** scripts to make processes of running and invoking programs and classes automatics.
