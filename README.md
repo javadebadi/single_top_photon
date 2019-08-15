@@ -15,10 +15,13 @@ Feynman Diagrams for single top + photon prcoesses:
 The main code is a C++ code which is designed and implemented for physics analysis. 
 
 In the physics analysis we have serveral objects:
-- photons
-- electorons
-- muons
-- jets
-- mets
+- photons (MyPhoton)
+- electorons (MyElectron)
+- muons (MyMuon)
+- jets (MyJet)
+- genParticles (MyGenParticle)
+- mets (MyMET)
 
-I have write a C++ class for each of these objects. 
+I have write a C++ class for each of these objects. The name of the classes and files are shown above in the paranthesis. 
+
+In any physics analysis we need to present a cut-flow table which shows how much of the events could survive from the cuts. This is important for hypothesis test in physics. We need to go in some part of phase space where the number of signal events is comparable to background events. In that region we can claim discovery or present our exclusion bounds.
