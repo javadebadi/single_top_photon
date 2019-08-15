@@ -1,7 +1,7 @@
 # single top photon
 The code for analysis of single top + photon using LHC data @13 TeV.
 
-Feynman Diagrams for single top + photon prcoesses:
+
 ***
 
 **Goal**: study SM process: single top + photon, with special interest on tt&gamma; coupling   
@@ -9,7 +9,7 @@ Feynman Diagrams for single top + photon prcoesses:
 - **sub-Goal (2)**: combine 2017 and 2018 results with 2016
 - **sub-Goal (3)**: __*electron*__ channel for top decay (Ali or Saleh might join for this part, which has its own new challenges)
 
-
+***
 ### Structure of the Code
 
 The main code is a **C++** code which is designed and implemented for physics analysis. I have used **Python** and **Bash** to make some parts of the programming faster and maintainable. 
